@@ -1,0 +1,31 @@
+{
+  "name": "react-redux-test-renderer",
+  "version": "0.0.1",
+  "description": "testing renderer for react and redux testing",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "tsc --watch",
+    "test": "jest -all"
+  },
+  "author": "edward shaughnessy",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@testing-library/jest-dom": "^4.0.0",
+    "@testing-library/react": "^9.2.0",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.6.3",
+    "@types/react": "^16.9.3",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.1.4",
+    "@types/redux-mock-store": "^1.0.1",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3",
+    "react": "16.x",
+    "react-dom": "16.x",
+    "react-redux": "7.x",
+    "redux-mock-store": "1.x"
+  }
+}
