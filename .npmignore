@@ -1,4 +1,6 @@
 node_modules
-/src
+src
 .idea
 .vscode
+tsconfig.json
+jest.config.js
