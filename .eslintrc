@@ -1,0 +1,37 @@
+{
+    "extends": [
+        "airbnb-typescript",
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": ["react", "@typescript-eslint", "prettier"],
+    "env": {
+        "browser": true,
+        "jasmine": true,
+        "jest": true,
+        "es6": true
+    },
+    "rules": {
+        "prettier/prettier": ["error", { "singleQuote": true }],
+        "@typescript-eslint/interface-name-prefix": ["off"],
+        "@typescript-eslint/no-inferrable-types": ["off"],
+        "@typescript-eslint/no-unused-vars": ["error", {"args": "all", "argsIgnorePattern": "^_"}],
+        "@typescript-eslint/ban-ts-ignore": ["warn"],
+        "linebreak-style": ["off"],
+        "@typescript-eslint/indent": ["error", 4],
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "max-len": ["error", 120],
+        "import/prefer-default-export": ["off"]
+    },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "detect"
+        }
+    },
+    "parser": "@typescript-eslint/parser"
+}

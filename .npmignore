@@ -4,3 +4,5 @@ src
 .vscode
 tsconfig.json
 jest.config.js
+.eslintrc
+.prettierrc

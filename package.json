@@ -1,6 +1,6 @@
 {
   "name": "react-redux-test-renderer",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "testing renderer for react, redux and wrappers",
   "author": "ted shaughnessy",
   "license": "MIT",
@@ -12,30 +12,46 @@
     "react",
     "redux",
     "wrappers",
-    "renderer"
+    "renderer",
+    "test"
   ],
   "main": "dist/index.js",
   "scripts": {
     "compile": "tsc --watch",
-    "test": "jest -all"
+    "test": "jest -all",
+    "lint": "eslint --ext=ts,tsx src",
+    "pretty-check": "prettier -c \"src/**/*.{ts,tsx,js,jsx,json}\""
+  },
+  "dependencies": {
+    "@testing-library/react": "^9.2.0",
+    "react": "16.x",
+    "react-redux": "7.x",
+    "redux-mock-store": "1.x"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.6.0",
     "@testing-library/jest-dom": "^4.0.0",
-    "@testing-library/react": "^9.2.0",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.6.3",
     "@types/react": "^16.9.3",
     "@types/react-dom": "^16.8.4",
     "@types/react-redux": "^7.1.4",
     "@types/redux-mock-store": "^1.0.1",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-typescript": "^6.0.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
     "jest": "^24.9.0",
-    "ts-jest": "^24.1.0",
-    "typescript": "^3.6.3",
-    "react": "16.x",
+    "prettier": "^1.18.2",
     "react-dom": "16.x",
-    "react-redux": "7.x",
-    "redux-mock-store": "1.x"
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
   }
 }

@@ -1,6 +1,12 @@
-import * as React from 'react';
-
-import { defaultProps, defaultState, differentProps, differentState } from './testHelper';
+import {
+    defaultProps,
+    defaultState,
+    differentProps,
+    differentState,
+    getNullSafeTextContent,
+    propSelector,
+    statePropSelector,
+} from './testHelper';
 import ConnectedTestComponent, {
     propDefault,
     propDifferentPassed,
@@ -9,7 +15,7 @@ import ConnectedTestComponent, {
     statePropDifferentPassed,
     statePropFromStore,
 } from './testComponents/TestComponent';
-import {cleanup, TestRenderer } from '../index';
+import { cleanup, TestRenderer } from '../index';
 
 const connectedTestComponent = new TestRenderer(ConnectedTestComponent, defaultProps, defaultState);
 const connectedTestComponent2 = new TestRenderer(ConnectedTestComponent);
@@ -20,56 +26,50 @@ describe('renderWithStore works ', () => {
     it('with default props', () => {
         const result = connectedTestComponent.renderWithStore();
 
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h2').textContent).toEqual(propPassed);
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h3').textContent).toEqual(statePropFromStore);
+        expect(getNullSafeTextContent(result, propSelector)).toEqual(propPassed);
+
+        expect(getNullSafeTextContent(result, statePropSelector)).toEqual(statePropFromStore);
     });
 
     it('overriding default props', () => {
         const result = connectedTestComponent.renderWithStore(differentProps);
 
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h2').textContent).toEqual(propDifferentPassed);
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h3').textContent).toEqual(statePropFromStore);
+        expect(getNullSafeTextContent(result, propSelector)).toEqual(propDifferentPassed);
+
+        expect(getNullSafeTextContent(result, statePropSelector)).toEqual(statePropFromStore);
     });
 
     it('no props or state', () => {
         const result = connectedTestComponent.renderWithStore({}, {});
 
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h2').textContent).toEqual(propDefault);
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h3').textContent).toEqual(statePropDefault);
+        expect(getNullSafeTextContent(result, propSelector)).toEqual(propDefault);
+
+        expect(getNullSafeTextContent(result, statePropSelector)).toEqual(statePropDefault);
     });
 
     it('overriding state', () => {
         const result = connectedTestComponent.renderWithStore(undefined, differentState);
 
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h2').textContent).toEqual(propPassed);
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h3').textContent).toEqual(statePropDifferentPassed);
+        expect(getNullSafeTextContent(result, propSelector)).toEqual(propPassed);
+
+        expect(getNullSafeTextContent(result, statePropSelector)).toEqual(statePropDifferentPassed);
     });
 
     it('updating state with default props and state', () => {
         const result = connectedTestComponent2.renderWithStore();
 
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h2').textContent).toEqual(propDefault);
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h3').textContent).toEqual(statePropDefault);
+        expect(getNullSafeTextContent(result, propSelector)).toEqual(propDefault);
+
+        expect(getNullSafeTextContent(result, statePropSelector)).toEqual(statePropDefault);
     });
 
     it('updating state with TestComponent', () => {
         const result = connectedTestComponent.renderWithStore(undefined, defaultState);
 
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h3').textContent).toEqual(statePropFromStore);
+        expect(getNullSafeTextContent(result, statePropSelector)).toEqual(statePropFromStore);
 
         connectedTestComponent.updateStateWithDispatch({ ...defaultState, stateProp: statePropDifferentPassed });
-        // @ts-ignore
-        expect(result.baseElement.querySelector('h3').textContent).toEqual(statePropDifferentPassed);
+
+        expect(getNullSafeTextContent(result, statePropSelector)).toEqual(statePropDifferentPassed);
     });
 });

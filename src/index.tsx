@@ -1,25 +1,34 @@
-import {cleanup as RTLcleanup, render as RTLrender, RenderResult} from '@testing-library/react';
+import { cleanup as RTLcleanup, render as RTLrender, RenderResult } from '@testing-library/react';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-export const cleanup = () => RTLcleanup();
+export const cleanup = (): void => RTLcleanup();
 
 export class TestRenderer {
     private state: object | undefined;
+
     private mockStore: any;
+
     private readonly component: component;
-    private readonly defaultProps: object;
-    private readonly defaultState: object;
+
+    // eslint-disable-next-line react/static-property-placement
+    private readonly defaultProps: object = {};
+
+    private readonly defaultState: object = {};
+
     private readonly middleware: any = [];
+
     private wrappers: IWrapper[] = [];
+
     private temporaryWrappers: IWrapper[] = [];
+
     private useTemporaryWrappers: boolean = false;
 
     constructor(component: any, defaultProps?: object, defaultState?: object) {
         this.component = component;
-        this.defaultProps = defaultProps ? defaultProps : {};
-        this.defaultState = defaultState ? defaultState : {};
+        this.defaultProps = defaultProps || {};
+        this.defaultState = defaultState || {};
         if (defaultState) {
             this.state = defaultState;
         }
@@ -27,17 +36,16 @@ export class TestRenderer {
     }
 
     render(props?: object, children?: component): TestRendererResult {
-
         const usingTemporaryWrappers = this.useTemporaryWrappers;
         const renderResult = RTLrender(this.buildComponent(props, children));
 
-        return { 
+        return {
             ...renderResult,
             rerender: (newProps: object) => {
                 this.useTemporaryWrappers = usingTemporaryWrappers;
-                renderResult.rerender(this.buildComponent(newProps, children))
-            }
-        }
+                renderResult.rerender(this.buildComponent(newProps, children));
+            },
+        };
     }
 
     renderWithStore(props?: object, state?: object, children?: component): TestRendererResultWithStore {
@@ -54,8 +62,8 @@ export class TestRenderer {
             store,
             rerender: (newProps: object) => {
                 this.useTemporaryWrappers = usingTemporaryWrappers;
-                return renderResult.rerender(this.wrapWithProvider(store, this.buildComponent(newProps, children)))
-            }
+                return renderResult.rerender(this.wrapWithProvider(store, this.buildComponent(newProps, children)));
+            },
         };
     }
 
@@ -106,27 +114,31 @@ export class TestRenderer {
         if (this.useTemporaryWrappers) {
             this.useTemporaryWrappers = false;
             return this.wrapWithTemporaryWrappers(component);
-        } else {
-            return this.wrapWithWrappers(component);
         }
+
+        return this.wrapWithWrappers(component);
     };
 
     private modifyWrapperPropsArray = (array: IWrapper[], index: number, props: object) => {
+        // eslint-disable-next-line no-param-reassign
         array[index] = { component: this.wrappers[index].component, props };
     };
 
     private wrapWithWrappers = (component: component) => this.wrapWithWrapperArray(this.wrappers, component);
 
-    private wrapWithTemporaryWrappers = (component: component) => this.wrapWithWrapperArray(this.temporaryWrappers, component);
+    private wrapWithTemporaryWrappers = (component: component) =>
+        this.wrapWithWrapperArray(this.temporaryWrappers, component);
 
     private wrapWithWrapperArray = (array: IWrapper[], component: component) => {
         array.forEach(wrapper => {
+            // eslint-disable-next-line no-param-reassign
             component = this.wrapWithWrapper(component, wrapper);
         });
         return component;
     };
 
     private wrapWithWrapper = (component: component, wrapper: IWrapper) =>
+        // eslint-disable-next-line react/no-children-prop
         React.createElement(wrapper.component, { ...wrapper.props, children: component });
 
     private wrapWithProvider = (store: any, childComponent: component) => (
@@ -134,11 +146,18 @@ export class TestRenderer {
     );
 
     private createBaseComponent = (props?: object, children?: component) =>
-        React.createElement(this.component, props ? props : this.defaultProps, children);
+        React.createElement(this.component, props || this.defaultProps, children);
 
-    private setStore = () => (this.mockStore = configureStore(this.middleware)(() => this.state));
+    // eslint-disable-next-line no-return-assign
+    private setStore(): any {
+        this.mockStore = configureStore(this.middleware)(() => this.state);
+        return this.mockStore;
+    }
 
-    private setState = (state?: object): object => (this.state = state !== undefined ? state : this.defaultState);
+    private setState(state?: object): object {
+        this.state = state !== undefined ? state : this.defaultState;
+        return this.state;
+    }
 }
 
 interface IWrapper {
@@ -147,8 +166,7 @@ interface IWrapper {
 }
 
 type Override<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
-type TestRendererResult = Override<RenderResult, { rerender: (newProps: object) => void }>
-type TestRendererResultWithStore = Override<TestRendererResult, { store: object}>
-type action = {type: string}
+type TestRendererResult = Override<RenderResult, { rerender: (newProps: object) => void }>;
+type TestRendererResultWithStore = Override<TestRendererResult, { store: object }>;
+type action = { type: string };
 type component = any;
-
