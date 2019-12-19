@@ -1,7 +1,7 @@
 import { cleanup as RTLcleanup, render as RTLrender, RenderResult } from '@testing-library/react';
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
+import configureStore, { MockStore } from 'redux-mock-store';
 
 export const cleanup = (): void => RTLcleanup();
 
@@ -41,7 +41,7 @@ export class TestRenderer {
 
         return {
             ...renderResult,
-            rerender: (newProps: object) => {
+            rerender: (newProps: object): void => {
                 this.useTemporaryWrappers = usingTemporaryWrappers;
                 renderResult.rerender(this.buildComponent(newProps, children));
             },
@@ -60,7 +60,7 @@ export class TestRenderer {
         return {
             ...renderResult,
             store,
-            rerender: (newProps: object) => {
+            rerender: (newProps: object): void => {
                 this.useTemporaryWrappers = usingTemporaryWrappers;
                 return renderResult.rerender(this.wrapWithProvider(store, this.buildComponent(newProps, children)));
             },
@@ -101,14 +101,14 @@ export class TestRenderer {
     getAllActions = (): action[] => this.mockStore.getActions();
 
     getActionsOfType = (actionType: string): action[] =>
-        this.mockStore.getActions().filter((action: any) => action.type === actionType);
+        this.mockStore.getActions().filter((action: action) => action.type === actionType);
 
     getCountForAllActions = (): number => this.mockStore.getActions().length;
 
     getCountForAction = (actionType: string): number =>
-        this.mockStore.getActions().filter((action: any) => action.type === actionType).length;
+        this.mockStore.getActions().filter((action: action) => action.type === actionType).length;
 
-    private buildComponent = (props?: object, children?: component) => {
+    private buildComponent = (props?: object, children?: component): component => {
         const component = this.createBaseComponent(props, children);
 
         if (this.useTemporaryWrappers) {
@@ -119,17 +119,17 @@ export class TestRenderer {
         return this.wrapWithWrappers(component);
     };
 
-    private modifyWrapperPropsArray = (array: IWrapper[], index: number, props: object) => {
+    private modifyWrapperPropsArray = (array: IWrapper[], index: number, props: object): component => {
         // eslint-disable-next-line no-param-reassign
         array[index] = { component: this.wrappers[index].component, props };
     };
 
-    private wrapWithWrappers = (component: component) => this.wrapWithWrapperArray(this.wrappers, component);
+    private wrapWithWrappers = (component: component): component => this.wrapWithWrapperArray(this.wrappers, component);
 
-    private wrapWithTemporaryWrappers = (component: component) =>
+    private wrapWithTemporaryWrappers = (component: component): component =>
         this.wrapWithWrapperArray(this.temporaryWrappers, component);
 
-    private wrapWithWrapperArray = (array: IWrapper[], component: component) => {
+    private wrapWithWrapperArray = (array: IWrapper[], component: component): component => {
         array.forEach(wrapper => {
             // eslint-disable-next-line no-param-reassign
             component = this.wrapWithWrapper(component, wrapper);
@@ -137,19 +137,19 @@ export class TestRenderer {
         return component;
     };
 
-    private wrapWithWrapper = (component: component, wrapper: IWrapper) =>
+    private wrapWithWrapper = (component: component, wrapper: IWrapper): component =>
         // eslint-disable-next-line react/no-children-prop
         React.createElement(wrapper.component, { ...wrapper.props, children: component });
 
-    private wrapWithProvider = (store: any, childComponent: component) => (
+    private wrapWithProvider = (store: any, childComponent: component): component => (
         <Provider store={store}>{childComponent}</Provider>
     );
 
-    private createBaseComponent = (props?: object, children?: component) =>
+    private createBaseComponent = (props?: object, children?: component): component =>
         React.createElement(this.component, props || this.defaultProps, children);
 
     // eslint-disable-next-line no-return-assign
-    private setStore(): any {
+    private setStore(): MockStore {
         this.mockStore = configureStore(this.middleware)(() => this.state);
         return this.mockStore;
     }
@@ -167,6 +167,6 @@ interface IWrapper {
 
 type Override<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
 type TestRendererResult = Override<RenderResult, { rerender: (newProps: object) => void }>;
-type TestRendererResultWithStore = Override<TestRendererResult, { store: object }>;
+type TestRendererResultWithStore = Override<TestRendererResult, { store: MockStore }>;
 type action = { type: string };
 type component = any;
