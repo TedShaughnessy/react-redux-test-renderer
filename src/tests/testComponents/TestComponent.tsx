@@ -2,14 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import * as React from 'react';
 import { connect } from 'react-redux';
-
-export const statePropFromStore = 'statePropFromStore';
-export const statePropDefault = 'statePropDefault';
-export const statePropDifferentPassed = 'statePropDifferentPassed';
-
-export const propPassed = 'propPassed';
-export const propDefault = 'propDefault';
-export const propDifferentPassed = 'propDifferentPassed';
+import { propDefault, statePropDefault } from './Properties';
 
 type IProps = ITestProps & ITestMapStateToProps;
 

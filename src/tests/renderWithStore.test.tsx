@@ -7,15 +7,16 @@ import {
     propSelector,
     statePropSelector,
 } from './testHelper';
-import ConnectedTestComponent, {
-    propDefault,
-    propDifferentPassed,
+import ConnectedTestComponent from './testComponents/TestComponent';
+import { cleanup, TestRenderer } from '../index';
+import {
     propPassed,
+    statePropFromStore,
+    propDifferentPassed,
+    propDefault,
     statePropDefault,
     statePropDifferentPassed,
-    statePropFromStore,
-} from './testComponents/TestComponent';
-import { cleanup, TestRenderer } from '../index';
+} from './testComponents/Properties';
 
 const connectedTestComponent = new TestRenderer(ConnectedTestComponent, defaultProps, defaultState);
 const connectedTestComponent2 = new TestRenderer(ConnectedTestComponent);

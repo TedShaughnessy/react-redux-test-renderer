@@ -1,6 +1,7 @@
 import { defaultProps, defaultState } from './testHelper';
-import ConnectedTestComponent, { statePropDifferentPassed } from './testComponents/TestComponent';
+import ConnectedTestComponent from './testComponents/TestComponent';
 import { cleanup, TestRenderer } from '../index';
+import { statePropDifferentPassed } from './testComponents/Properties';
 
 afterEach(cleanup);
 

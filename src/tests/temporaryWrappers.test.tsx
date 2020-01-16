@@ -1,11 +1,8 @@
 import { defaultProps, defaultState, getNullSafeTextContent } from './testHelper';
-import ConnectedTestComponent, {
-    statePropDefault,
-    statePropFromStore,
-    TestComponent,
-} from './testComponents/TestComponent';
+import ConnectedTestComponent, { TestComponent } from './testComponents/TestComponent';
 import { cleanup, TestRenderer } from '../index';
-import { TestWrapper } from './testComponents/TestWrapper';
+import { TestWrapper } from './testComponents/TestComponentWrapper';
+import { statePropFromStore, statePropDefault } from './testComponents/Properties';
 
 afterEach(cleanup);
 

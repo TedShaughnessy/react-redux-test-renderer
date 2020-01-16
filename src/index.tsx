@@ -73,7 +73,12 @@ export class TestRenderer {
     }
 
     addWrapper = (component: component, props: object): number => {
-        this.wrappers.push({ component, props });
+        this.wrappers.push({ wrapper: { component, props } });
+        return this.wrappers.length - 1;
+    };
+
+    addContextProvider = (context: React.Context<any>, value: object): number => {
+        this.wrappers.push({ wrapper: { context, value } });
         return this.wrappers.length - 1;
     };
 
@@ -83,7 +88,7 @@ export class TestRenderer {
             this.useTemporaryWrappers = true;
         }
 
-        this.temporaryWrappers.push({ component, props });
+        this.temporaryWrappers.push({ wrapper: { component, props } });
         return this;
     };
 
@@ -120,8 +125,14 @@ export class TestRenderer {
     };
 
     private modifyWrapperPropsArray = (array: IWrapper[], index: number, props: object): component => {
+        const wrapper = array[index].wrapper as IComponent;
+
+        if (wrapper.component === undefined) {
+            throw new Error('not a component');
+        }
+
         // eslint-disable-next-line no-param-reassign
-        array[index] = { component: this.wrappers[index].component, props };
+        array[index] = { wrapper: { component: wrapper.component, props } };
     };
 
     private wrapWithWrappers = (component: component): component => this.wrapWithWrapperArray(this.wrappers, component);
@@ -132,17 +143,24 @@ export class TestRenderer {
     private wrapWithWrapperArray = (array: IWrapper[], component: component): component => {
         array.forEach(wrapper => {
             // eslint-disable-next-line no-param-reassign
-            component = this.wrapWithWrapper(component, wrapper);
+            component =
+                (wrapper.wrapper as IComponent).component !== undefined
+                    ? this.wrapWithWrapper(component, wrapper.wrapper as IComponent)
+                    : this.wrapWithContextProvider(component, wrapper.wrapper as IContextProvider);
         });
         return component;
     };
 
-    private wrapWithWrapper = (component: component, wrapper: IWrapper): component =>
+    private wrapWithWrapper = (component: component, wrapper: IComponent): component =>
         // eslint-disable-next-line react/no-children-prop
         React.createElement(wrapper.component, { ...wrapper.props, children: component });
 
     private wrapWithProvider = (store: any, childComponent: component): component => (
         <Provider store={store}>{childComponent}</Provider>
+    );
+
+    private wrapWithContextProvider = (childComponent: component, wrapper: IContextProvider): component => (
+        <wrapper.context.Provider value={wrapper.value}>{childComponent}</wrapper.context.Provider>
     );
 
     private createBaseComponent = (props?: object, children?: component): component =>
@@ -161,12 +179,21 @@ export class TestRenderer {
 }
 
 interface IWrapper {
+    wrapper: IComponent | IContextProvider;
+}
+
+interface IComponent {
     component: component;
     props: object;
+}
+
+interface IContextProvider {
+    context: React.Context<object>;
+    value: object;
 }
 
 type Override<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
 type TestRendererResult = Override<RenderResult, { rerender: (newProps: object) => void }>;
 type TestRendererResultWithStore = Override<TestRendererResult, { store: MockStore }>;
 type action = { type: string };
-type component = any;
+type component = any; // vague types used to avoid masses of generics, short lived attempts were made.

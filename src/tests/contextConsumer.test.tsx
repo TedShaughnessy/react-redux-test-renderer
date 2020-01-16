@@ -1,0 +1,19 @@
+import { defaultProps, defaultState, getNullSafeTextContent } from './testHelper';
+import { cleanup, TestRenderer } from '../index';
+import { TestContextConsumerComponent } from './testComponents/TestContextConsumerComponent';
+import { defaultContextState, TestContext } from './testComponents/TestContextProviderWrapper';
+
+const testComponentWithContext = new TestRenderer(TestContextConsumerComponent, defaultProps, defaultState);
+testComponentWithContext.addContextProvider(TestContext, { ...defaultContextState, contextProp: 1 });
+
+const selector = 'body > div > h3';
+
+afterEach(cleanup);
+
+describe('adding context provider wrapper works: ', () => {
+    it('context consumer component', () => {
+        const result = testComponentWithContext.render();
+
+        expect(getNullSafeTextContent(result, selector)).toEqual('1');
+    });
+});

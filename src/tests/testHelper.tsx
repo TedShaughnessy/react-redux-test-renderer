@@ -1,12 +1,11 @@
 import { RenderResult } from '@testing-library/react';
+import { ITestMapStateToProps, ITestProps } from './testComponents/TestComponent';
 import {
-    ITestMapStateToProps,
-    ITestProps,
-    propDifferentPassed,
     propPassed,
-    statePropDifferentPassed,
     statePropFromStore,
-} from './testComponents/TestComponent';
+    propDifferentPassed,
+    statePropDifferentPassed,
+} from './testComponents/Properties';
 
 export const defaultProps: ITestProps = {
     prop: propPassed,

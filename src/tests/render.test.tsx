@@ -6,8 +6,9 @@ import {
     propSelector,
     statePropSelector,
 } from './testHelper';
-import { propDefault, propDifferentPassed, statePropDefault, TestComponent } from './testComponents/TestComponent';
+import { TestComponent } from './testComponents/TestComponent';
 import { cleanup, TestRenderer } from '../index';
+import { propDifferentPassed, statePropDefault, propDefault } from './testComponents/Properties';
 
 const testComponent = new TestRenderer(TestComponent, defaultProps, defaultState);
 const testComponent2 = new TestRenderer(TestComponent);

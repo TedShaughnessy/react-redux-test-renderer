@@ -11,10 +11,11 @@ const testComponent = new TestRenderer(
 ```
 
 - defaultProps and defaultState are optional
-- adding wrappers is also optional
+- adding wrappers and providers is also optional
 
 ```typescript
-const wrapper = testComponent4.addWrapper(TestWrapper, {name: 'one'});
+const wrapper = testComponent.addWrapper(TestWrapper, propsObject);
+testComponent.addProvider(context, stateObject);
 ```
 
 - when creating a wrapper, the wrapper returns a reference to itself
@@ -32,7 +33,7 @@ const wrapper = testComponent4.addWrapper(TestWrapper, {name: 'one'});
 ```
 
 - useWrapperProps will change the props of an existing wrapper, using the reference from when it was created
-- addTemporaryWrapper will add a wrapper for that render
+- addTemporaryWrapper will add a wrapper for that render only
 
 ## Actions and Assertions
 
