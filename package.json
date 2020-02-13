@@ -1,7 +1,7 @@
 {
   "name": "react-redux-test-renderer",
-  "version": "1.1.1",
-  "description": "testing renderer for react with redux",
+  "version": "1.2.1",
+  "description": "simplified component rendering for react with redux",
   "author": "ted shaughnessy",
   "license": "MIT",
   "repository": {
@@ -19,14 +19,15 @@
   "scripts": {
     "compile": "tsc --watch",
     "test": "jest -all",
-    "lint": "eslint --ext=ts,tsx src",
+    "lint": "eslint --ext=ts,tsx src --fix",
     "pretty-check": "prettier -c \"src/**/*.{ts,tsx,js,jsx,json}\""
   },
   "dependencies": {
-    "@testing-library/react": "9.x.0",
+    "@testing-library/dom": "^6.12.2",
+    "@testing-library/react": "9.x",
     "react": "16.x",
     "react-redux": "7.x",
-    "redux": "^4.0.5",
+    "redux": "4.x",
     "redux-mock-store": "1.x"
   },
   "devDependencies": {
