@@ -22,13 +22,15 @@ export class RenderMethods {
         const usingTemporaryWrappers = this.trb.useTemporaryWrappers;
         const renderResult = RTLrender(this.buildComponent(props, children));
 
-        return {
+        this.trb.lastRenderResult = {
             ...renderResult,
             rerender: (newProps: object): void => {
                 this.trb.useTemporaryWrappers = usingTemporaryWrappers;
                 renderResult.rerender(this.buildComponent(newProps, children));
             },
         };
+
+        return this.trb.lastRenderResult;
     };
 
     renderWithStore = (props?: object, state?: object, children?: _component): TestRendererResultWithStore => {
@@ -40,7 +42,7 @@ export class RenderMethods {
 
         const renderResult = RTLrender(wrappedComponent);
 
-        return {
+        this.trb.lastRenderResult = {
             ...renderResult,
             store,
             rerender: (newProps: object): void => {
@@ -48,6 +50,8 @@ export class RenderMethods {
                 return renderResult.rerender(this.wrapWithProvider(store, this.buildComponent(newProps, children)));
             },
         };
+
+        return this.trb.lastRenderResult;
     };
 
     private buildComponent = (props?: object, children?: _component): _component => {

@@ -116,13 +116,13 @@ export class TestRenderer {
 
     /**
      * get the number of actions dispatched
-     * @returns {action[]}
+     * @returns {number}
      */
     getCountForAllActions = (): number => this.actionMethods.getCountForAllActions();
 
     /**
      * get the number of actions dispatched of a particular type
-     * @returns {action[]}
+     * @returns {number}
      */
     getCountForAction = (actionType: string): number => this.actionMethods.getCountForAction(actionType);
 }
