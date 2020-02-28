@@ -73,8 +73,8 @@ export class RenderMethods {
         array.forEach(wrapper => {
             wrappedElement =
                 (wrapper.wrapper as IComponent).component !== undefined
-                    ? this.wrapWithWrapper(component, wrapper.wrapper as IComponent)
-                    : this.wrapWithContextProvider(component, wrapper.wrapper as IContextProvider);
+                    ? this.wrapWithWrapper(wrappedElement, wrapper.wrapper as IComponent)
+                    : this.wrapWithContextProvider(wrappedElement, wrapper.wrapper as IContextProvider);
         });
 
         return wrappedElement;
