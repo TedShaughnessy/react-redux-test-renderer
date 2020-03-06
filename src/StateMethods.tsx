@@ -8,9 +8,9 @@ export class StateMethods {
         this.trb = testRendererBase;
     }
 
-    async updateStateWithDispatch(state: object, actionType?: string): Promise<void> {
+    updateStateWithDispatch = async (state: object, actionType?: string): Promise<void> => {
         this.trb.setState(state);
         this.trb.mockStore.dispatch({ type: actionType ?? 'TESTING_UPDATE_ACTION' });
         await wait(undefined, { interval: 1 });
-    }
+    };
 }
