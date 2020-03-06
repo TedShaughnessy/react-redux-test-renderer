@@ -1,4 +1,21 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable global-require */
 const path = require('path');
+
+function DtsBundlePlugin() {}
+DtsBundlePlugin.prototype.apply = function(compiler) {
+    compiler.plugin('done', function() {
+        const dts = require('dts-bundle');
+
+        dts.bundle({
+            name: 'react-redux-test-renderer',
+            main: 'dist/index.d.ts',
+            out: './index.d.ts',
+            removeSource: true,
+            outputAsModuleFolder: true,
+        });
+    });
+};
 
 module.exports = {
     mode: 'production',
@@ -19,4 +36,5 @@ module.exports = {
             },
         ],
     },
+    plugins: [new DtsBundlePlugin()],
 };
