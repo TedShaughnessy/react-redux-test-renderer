@@ -14,40 +14,30 @@ export class ComponentMethods {
         return this.trb.wrappers.length - 1;
     };
 
-    /**
-     * wraps the existing test component and wrappers in a context provider
-     * @param {React.Context<any>} context, the context to wrap the component and wrappers with
-     * @param {object} value, the value of the context provider
-     * @returns {number}
-     */
     addContextProvider = (context: React.Context<any>, value: object): number => {
         this.trb.wrappers.push({ wrapper: { context, value } });
         return this.trb.wrappers.length - 1;
     };
 
-    /**
-     * wraps the existing test component and wrappers in another component that only lasts for one render
-     * returns the test component
-     * @param {component} component, the wrapper component
-     * @param {object} props, optional props for the wrapper
-     * @returns {TestRenderer}
-     */
     addTemporaryWrapper = (component: _component, props: object): void => {
-        if (!this.trb.useTemporaryWrappers) {
-            this.trb.temporaryWrappers = [...this.trb.wrappers];
-            this.trb.useTemporaryWrappers = true;
-        }
+        this.enableTemporaryWrappers();
 
         this.trb.temporaryWrappers.push({ wrapper: { component, props } });
     };
 
     useWrapperProps = (id: number, props: object): void => {
+        this.enableTemporaryWrappers();
+
+        this.modifyWrapperPropsArray(this.trb.temporaryWrappers, id, props);
+    };
+
+    useContextValue = (id: number, props: object): void => this.useWrapperProps(id, props);
+
+    private enableTemporaryWrappers = (): void => {
         if (!this.trb.useTemporaryWrappers) {
             this.trb.temporaryWrappers = [...this.trb.wrappers];
             this.trb.useTemporaryWrappers = true;
         }
-
-        this.modifyWrapperPropsArray(this.trb.temporaryWrappers, id, props);
     };
 
     private modifyWrapperPropsArray = (array: IWrapper[], index: number, props: object): _component => {
