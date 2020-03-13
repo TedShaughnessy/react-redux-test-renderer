@@ -86,7 +86,7 @@ export class TestRenderer {
      * change a context value for one render
      * returns the test component
      * @param {number} id, the wrappers id returned by addWrapper
-     * @param {object} props, new props for the wrapper
+     * @param {object} value, new value for the contextProvider
      * @returns {TestRenderer}
      */
     useContextValue = (id: number, value: object): TestRenderer => {
