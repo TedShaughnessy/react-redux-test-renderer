@@ -1,65 +1,65 @@
 {
-  "name": "react-redux-test-renderer",
-  "version": "1.2.2",
-  "description": "simplified component rendering for react with redux",
-  "author": "ted shaughnessy",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TedShaughnessy/react-redux-test-renderer"
-  },
-  "keywords": [
-    "react",
-    "redux",
-    "wrappers",
-    "renderer",
-    "test"
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "compile": "webpack",
-    "test": "jest -all",
-    "lint": "eslint --ext=ts,tsx src --fix",
-    "pretty-check": "prettier -c \"src/**/*.{ts,tsx,js,jsx,json}\""
-  },
-  "dependencies": {
-    "@testing-library/dom": "^6.12.2",
-    "@testing-library/react": "9.x",
-    "react": "16.x",
-    "react-redux": "7.x",
-    "redux": "4.x",
-    "redux-mock-store": "1.x"
-  },
-  "devDependencies": {
-    "@babel/preset-react": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3",
-    "@testing-library/jest-dom": "^4.0.0",
-    "@types/jest": "^24.9.0",
-    "@types/node": "^12.12.24",
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.8.4",
-    "@types/react-redux": "^7.1.6",
-    "@types/redux-mock-store": "^1.0.1",
-    "@typescript-eslint/eslint-plugin": "^2.16.0",
-    "@typescript-eslint/parser": "^2.16.0",
-    "dts-bundle": "^0.7.3",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-typescript": "^6.0.0",
-    "eslint-config-prettier": "^6.9.0",
-    "eslint-config-react": "^1.1.7",
-    "eslint-plugin-import": "^2.20.0",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-react": "^7.18.0",
-    "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "react-dom": "16.x",
-    "terser-webpack-plugin": "^2.3.5",
-    "ts-jest": "^24.3.0",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.4",
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
-  }
+    "name": "react-redux-test-renderer",
+    "version": "1.2.3",
+    "description": "simplified component rendering for react with redux",
+    "author": "ted shaughnessy",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/TedShaughnessy/react-redux-test-renderer"
+    },
+    "keywords": [
+        "react",
+        "redux",
+        "wrappers",
+        "renderer",
+        "test"
+    ],
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "compile": "webpack",
+        "test": "jest -all",
+        "lint": "eslint --ext=ts,tsx src --fix",
+        "pretty-check": "prettier -c \"src/**/*.{ts,tsx,js,jsx,json}\""
+    },
+    "dependencies": {
+        "@testing-library/dom": "^6.12.2",
+        "@testing-library/react": "9.x",
+        "react": "16.x",
+        "react-redux": "7.x",
+        "redux": "4.x",
+        "redux-mock-store": "1.x"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.8.3",
+        "@babel/preset-typescript": "^7.8.3",
+        "@testing-library/jest-dom": "^4.0.0",
+        "@types/jest": "^24.9.0",
+        "@types/node": "^12.12.24",
+        "@types/react": "^16.9.17",
+        "@types/react-dom": "^16.8.4",
+        "@types/react-redux": "^7.1.6",
+        "@types/redux-mock-store": "^1.0.1",
+        "@typescript-eslint/eslint-plugin": "^2.16.0",
+        "@typescript-eslint/parser": "^2.16.0",
+        "dts-bundle": "^0.7.3",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-typescript": "^6.0.0",
+        "eslint-config-prettier": "^6.9.0",
+        "eslint-config-react": "^1.1.7",
+        "eslint-plugin-import": "^2.20.0",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-prettier": "^3.1.1",
+        "eslint-plugin-react": "^7.18.0",
+        "jest": "^24.9.0",
+        "prettier": "^1.18.2",
+        "react-dom": "16.x",
+        "terser-webpack-plugin": "^2.3.5",
+        "ts-jest": "^24.3.0",
+        "ts-loader": "^6.2.1",
+        "typescript": "^3.7.4",
+        "webpack": "^4.41.6",
+        "webpack-cli": "^3.3.11"
+    }
 }
