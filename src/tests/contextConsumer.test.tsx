@@ -24,6 +24,6 @@ describe('adding context provider wrapper works: ', () => {
             .useContextValue(contextValue, { ...defaultContextState, contextProp: 2 })
             .render();
 
-        expect(getNullSafeTextContent(result, selector)).toEqual('1');
+        expect(getNullSafeTextContent(result, selector)).toEqual('2');
     });
 });

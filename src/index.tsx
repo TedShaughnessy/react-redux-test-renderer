@@ -90,7 +90,7 @@ export class TestRenderer {
      * @returns {TestRenderer}
      */
     useContextValue = (id: number, value: object): TestRenderer => {
-        this.methods.useWrapperProps(id, value);
+        this.methods.useContextValue(id, value);
         return this;
     };
 
