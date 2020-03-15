@@ -83,6 +83,18 @@ export class TestRenderer {
     };
 
     /**
+     * change a context value for one render
+     * returns the test component
+     * @param {number} id, the wrappers id returned by addWrapper
+     * @param {object} value, new value for the contextProvider
+     * @returns {TestRenderer}
+     */
+    useContextValue = (id: number, value: object): TestRenderer => {
+        this.methods.useWrapperProps(id, value);
+        return this;
+    };
+
+    /**
      * get all of the actions dispatched since the last render
      * @returns {Action[]}
      */
