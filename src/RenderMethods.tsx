@@ -1,5 +1,5 @@
 import { render as RTLrender } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import {
     _component,

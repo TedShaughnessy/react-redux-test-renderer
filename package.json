@@ -18,7 +18,9 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "compile": "webpack",
+        "compile": "transpile & bundle",
+        "transpile": "tsc",
+        "bundle": "webpack",
         "test": "jest -all",
         "lint": "eslint --ext=ts,tsx src --fix",
         "pretty-check": "prettier -c \"src/**/*.{ts,tsx,js,jsx,json}\""

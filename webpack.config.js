@@ -18,23 +18,16 @@ DtsBundlePlugin.prototype.apply = function(compiler) {
 };
 
 module.exports = {
-    mode: 'production',
-    entry: './src/index.tsx',
+    mode: 'none',
+    entry: './dist/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        library: 'react-redux-test-renderer',
+        libraryTarget: 'umd',
+        path: path.resolve(__dirname, 'transpiled'),
         filename: 'index.js',
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', 'jsx'],
-    },
-    module: {
-        rules: [
-            {
-                test: /\.ts(x?)$/,
-                loader: 'ts-loader',
-                options: { allowTsInNodeModules: true },
-            },
-        ],
+        extensions: ['.js'],
     },
     plugins: [new DtsBundlePlugin()],
 };

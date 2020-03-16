@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { _component } from './types';
 import { TestRendererBase } from './TestRendererBase';
 
