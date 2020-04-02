@@ -41,7 +41,7 @@ export class ComponentMethods {
 
         if (wrapperArray[id].type !== 'component') {
             throw Error(
-                `useContextValue 'id' refers to a a type of '${wrapperArray[id].type}' not of type 'component'`
+                `useWrapperprops 'id' refers to a a type of '${wrapperArray[id].type}' not of type 'component'`
             );
         }
 
