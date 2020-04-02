@@ -18,9 +18,7 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "compile": "transpile & bundle",
-        "transpile": "tsc",
-        "bundle": "webpack",
+        "build": "tsc",
         "test": "jest -all",
         "lint": "eslint --ext=ts,tsx src --fix",
         "pretty-check": "prettier -c \"src/**/*.{ts,tsx,js,jsx,json}\""
@@ -45,7 +43,6 @@
         "@types/redux-mock-store": "^1.0.1",
         "@typescript-eslint/eslint-plugin": "^2.16.0",
         "@typescript-eslint/parser": "^2.16.0",
-        "dts-bundle": "^0.7.3",
         "eslint": "^6.8.0",
         "eslint-config-airbnb-typescript": "^6.0.0",
         "eslint-config-prettier": "^6.9.0",
@@ -59,9 +56,6 @@
         "react-dom": "16.x",
         "terser-webpack-plugin": "^2.3.5",
         "ts-jest": "^24.3.0",
-        "ts-loader": "^6.2.1",
-        "typescript": "^3.7.4",
-        "webpack": "^4.41.6",
-        "webpack-cli": "^3.3.11"
+        "typescript": "^3.7.4"
     }
 }
