@@ -88,22 +88,10 @@ export class RenderMethods {
         createElement(wrapper.component, { ...wrapper.props }, component);
 
     private wrapWithProvider = (store: any, childComponent: _component): _component =>
-        createElement(
-            Provider,
-            {
-                store,
-            },
-            childComponent
-        );
+        this.wrapWithWrapper(childComponent, { component: Provider, props: { store } });
 
     private wrapWithContextProvider = (childComponent: _component, wrapper: IContextProvider): _component =>
-        createElement(
-            wrapper.context.Provider,
-            {
-                value: wrapper.value,
-            },
-            childComponent
-        );
+        this.wrapWithWrapper(childComponent, { component: wrapper.context.Provider, props: { value: wrapper.value } });
 
     private createBaseComponent = (props?: object, children?: _component): _component =>
         createElement(this.trb.component, props || this.trb.defaultProps, children);
