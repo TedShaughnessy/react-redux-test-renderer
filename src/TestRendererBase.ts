@@ -1,6 +1,6 @@
 import { cleanup as RTLcleanup } from '@testing-library/react';
 import configureStore, { MockStore } from 'redux-mock-store';
-import { _component, IWrapper, TestRendererResult, TestRendererResultWithStore } from './types';
+import { _component, IWrapper } from './types';
 
 export const cleanup = (): void => RTLcleanup();
 
@@ -23,8 +23,6 @@ export class TestRendererBase {
     temporaryWrappers: IWrapper[] = [];
 
     useTemporaryWrappers: boolean = false;
-
-    lastRenderResult: TestRendererResult | TestRendererResultWithStore | null = null;
 
     constructor(component: any, defaultProps?: object, defaultState?: object) {
         this.component = component;

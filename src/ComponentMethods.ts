@@ -10,23 +10,25 @@ export class ComponentMethods {
     }
 
     addWrapper = (component: _component, props?: object): number => {
-        this.trb.wrappers.push({ wrapper: { component, props: props ?? {} } });
+        this.trb.wrappers.push({ component, props: props ?? {}, type: 'component' });
         return this.trb.wrappers.length - 1;
     };
 
     addContextProvider = (context: React.Context<any>, value: object): number => {
-        this.trb.wrappers.push({ wrapper: { context, value } });
+        this.trb.wrappers.push({ component: context.Provider, props: { value }, type: 'context' });
         return this.trb.wrappers.length - 1;
     };
 
     addTemporaryWrapper = (component: _component, props: object): void => {
-        this.enableTemporaryWrappers();
+        this.createTemporaryWrappers();
 
-        this.trb.temporaryWrappers.push({ wrapper: { component, props } });
+        this.trb.temporaryWrappers.push({ component, props, type: 'component' });
+
+        this.enableTemporaryWrappers();
     };
 
     useWrapperProps = (id: number, props: object): void => {
-        this.enableTemporaryWrappers();
+        this.createTemporaryWrappers();
 
         if (!this.isValidIndex(id)) {
             throw Error(
@@ -36,11 +38,20 @@ export class ComponentMethods {
         }
 
         const wrapperArray = this.trb.temporaryWrappers;
-        wrapperArray[id] = { wrapper: { ...wrapperArray[id].wrapper, props } };
+
+        if (wrapperArray[id].type !== 'component') {
+            throw Error(
+                `useContextValue 'id' refers to a a type of '${wrapperArray[id].type}' not of type 'component'`
+            );
+        }
+
+        wrapperArray[id] = { ...wrapperArray[id], props };
+
+        this.enableTemporaryWrappers();
     };
 
     useContextValue = (id: number, value: object): void => {
-        this.enableTemporaryWrappers();
+        this.createTemporaryWrappers();
 
         if (!this.isValidIndex(id)) {
             throw Error(
@@ -50,13 +61,23 @@ export class ComponentMethods {
         }
 
         const wrapperArray = this.trb.temporaryWrappers;
-        wrapperArray[id] = { wrapper: { ...wrapperArray[id].wrapper, value } };
+
+        if (wrapperArray[id].type !== 'context') {
+            throw Error(`useContextValue 'id' refers to a a type of '${wrapperArray[id].type}' not of type 'context'`);
+        }
+
+        wrapperArray[id] = { ...wrapperArray[id], props: { value } };
+
+        this.enableTemporaryWrappers();
     };
 
     private enableTemporaryWrappers = (): void => {
+        this.trb.useTemporaryWrappers = true;
+    };
+
+    private createTemporaryWrappers = (): void => {
         if (!this.trb.useTemporaryWrappers) {
             this.trb.temporaryWrappers = [...this.trb.wrappers];
-            this.trb.useTemporaryWrappers = true;
         }
     };
 

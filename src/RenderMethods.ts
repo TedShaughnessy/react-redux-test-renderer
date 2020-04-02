@@ -1,14 +1,7 @@
 import { render as RTLrender } from '@testing-library/react';
 import { createElement } from 'react';
 import { Provider } from 'react-redux';
-import {
-    _component,
-    TestRendererResult,
-    TestRendererResultWithStore,
-    IWrapper,
-    IComponent,
-    IContextProvider,
-} from './types';
+import { _component, TestRendererResult, TestRendererResultWithStore, IWrapper } from './types';
 import { TestRendererBase } from './TestRendererBase';
 
 export class RenderMethods {
@@ -22,15 +15,13 @@ export class RenderMethods {
         const usingTemporaryWrappers = this.trb.useTemporaryWrappers;
         const renderResult = RTLrender(this.buildComponent(props, children));
 
-        this.trb.lastRenderResult = {
+        return {
             ...renderResult,
             rerender: (newProps: object): void => {
                 this.trb.useTemporaryWrappers = usingTemporaryWrappers;
                 renderResult.rerender(this.buildComponent(newProps, children));
             },
         };
-
-        return this.trb.lastRenderResult;
     };
 
     renderWithStore = (props?: object, state?: object, children?: _component): TestRendererResultWithStore => {
@@ -42,7 +33,7 @@ export class RenderMethods {
 
         const renderResult = RTLrender(wrappedComponent);
 
-        this.trb.lastRenderResult = {
+        return {
             ...renderResult,
             store,
             rerender: (newProps: object): void => {
@@ -50,8 +41,6 @@ export class RenderMethods {
                 return renderResult.rerender(this.wrapWithProvider(store, this.buildComponent(newProps, children)));
             },
         };
-
-        return this.trb.lastRenderResult;
     };
 
     private buildComponent = (props?: object, children?: _component): _component => {
@@ -75,23 +64,17 @@ export class RenderMethods {
         let wrappedElement = component;
 
         array.forEach(wrapper => {
-            wrappedElement =
-                (wrapper.wrapper as IComponent).component !== undefined
-                    ? this.wrapWithWrapper(wrappedElement, wrapper.wrapper as IComponent)
-                    : this.wrapWithContextProvider(wrappedElement, wrapper.wrapper as IContextProvider);
+            wrappedElement = this.wrapWithWrapper(wrappedElement, wrapper);
         });
 
         return wrappedElement;
     };
 
-    private wrapWithWrapper = (component: _component, wrapper: IComponent): _component =>
+    private wrapWithWrapper = (component: _component, wrapper: IWrapper): _component =>
         createElement(wrapper.component, { ...wrapper.props }, component);
 
     private wrapWithProvider = (store: any, childComponent: _component): _component =>
-        this.wrapWithWrapper(childComponent, { component: Provider, props: { store } });
-
-    private wrapWithContextProvider = (childComponent: _component, wrapper: IContextProvider): _component =>
-        this.wrapWithWrapper(childComponent, { component: wrapper.context.Provider, props: { value: wrapper.value } });
+        this.wrapWithWrapper(childComponent, { component: Provider, props: { store }, type: 'provider' });
 
     private createBaseComponent = (props?: object, children?: _component): _component =>
         createElement(this.trb.component, props || this.trb.defaultProps, children);
