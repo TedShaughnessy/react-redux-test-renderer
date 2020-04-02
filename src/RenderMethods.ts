@@ -1,5 +1,5 @@
 import { render as RTLrender } from '@testing-library/react';
-import * as React from 'react';
+import { createElement } from 'react';
 import { Provider } from 'react-redux';
 import {
     _component,
@@ -85,16 +85,26 @@ export class RenderMethods {
     };
 
     private wrapWithWrapper = (component: _component, wrapper: IComponent): _component =>
-        React.createElement(wrapper.component, { ...wrapper.props }, component);
+        createElement(wrapper.component, { ...wrapper.props }, component);
 
-    private wrapWithProvider = (store: any, childComponent: _component): _component => (
-        <Provider store={store}>{childComponent}</Provider>
-    );
+    private wrapWithProvider = (store: any, childComponent: _component): _component =>
+        createElement(
+            Provider,
+            {
+                store,
+            },
+            childComponent
+        );
 
-    private wrapWithContextProvider = (childComponent: _component, wrapper: IContextProvider): _component => (
-        <wrapper.context.Provider value={wrapper.value}>{childComponent}</wrapper.context.Provider>
-    );
+    private wrapWithContextProvider = (childComponent: _component, wrapper: IContextProvider): _component =>
+        createElement(
+            wrapper.context.Provider,
+            {
+                value: wrapper.value,
+            },
+            childComponent
+        );
 
     private createBaseComponent = (props?: object, children?: _component): _component =>
-        React.createElement(this.trb.component, props || this.trb.defaultProps, children);
+        createElement(this.trb.component, props || this.trb.defaultProps, children);
 }
