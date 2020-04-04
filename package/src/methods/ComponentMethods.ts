@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { _component } from './types';
-import { TestRendererBase } from './TestRendererBase';
+import { _component } from '../types';
+import { TestRendererBase } from '../TestRendererBase';
 
 export class ComponentMethods {
     private trb: TestRendererBase;

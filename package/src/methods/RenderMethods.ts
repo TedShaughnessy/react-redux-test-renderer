@@ -1,8 +1,8 @@
-import { render as RTLrender } from '@testing-library/react';
 import { createElement } from 'react';
+import { render as RTLrender } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { _component, TestRendererResult, TestRendererResultWithStore, IWrapper } from './types';
-import { TestRendererBase } from './TestRendererBase';
+import { _component, TestRendererResult, TestRendererResultWithStore, IWrapper } from '../types';
+import { TestRendererBase } from '../TestRendererBase';
 
 export class RenderMethods {
     private trb: TestRendererBase;
@@ -48,17 +48,11 @@ export class RenderMethods {
 
         if (this.trb.useTemporaryWrappers) {
             this.trb.useTemporaryWrappers = false;
-            return this.wrapWithTemporaryWrappers(component);
+            return this.wrapWithWrapperArray(this.trb.temporaryWrappers, component);
         }
 
-        return this.wrapWithWrappers(component);
+        return this.wrapWithWrapperArray(this.trb.wrappers, component);
     };
-
-    private wrapWithWrappers = (component: _component): _component =>
-        this.wrapWithWrapperArray(this.trb.wrappers, component);
-
-    private wrapWithTemporaryWrappers = (component: _component): _component =>
-        this.wrapWithWrapperArray(this.trb.temporaryWrappers, component);
 
     private wrapWithWrapperArray = (array: IWrapper[], component: _component): _component => {
         let wrappedElement = component;

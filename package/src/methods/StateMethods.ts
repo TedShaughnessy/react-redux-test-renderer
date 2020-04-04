@@ -1,5 +1,4 @@
-import { wait } from '@testing-library/dom';
-import { TestRendererBase } from './TestRendererBase';
+import { TestRendererBase } from '../TestRendererBase';
 
 export class StateMethods {
     private trb: TestRendererBase;
@@ -11,6 +10,7 @@ export class StateMethods {
     updateStateWithDispatch = async (state: object, actionType?: string): Promise<void> => {
         this.trb.setState(state);
         this.trb.mockStore.dispatch({ type: actionType ?? 'TESTING_UPDATE_ACTION' });
-        await wait(undefined, { interval: 1 });
+        // asynchronous function allows react to run useEffects
+        await new Promise(_ => setTimeout(() => {}, 1));
     };
 }

@@ -1,8 +1,5 @@
-import { cleanup as RTLcleanup } from '@testing-library/react';
 import { MethodFactory, Methods } from './MethodFactory';
 import { _component, TestRendererResult, TestRendererResultWithStore, Action } from './types';
-
-export const cleanup = RTLcleanup;
 
 export class TestRenderer {
     private methods: Methods;

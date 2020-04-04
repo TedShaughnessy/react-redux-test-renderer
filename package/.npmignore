@@ -1,8 +1,11 @@
-node_modules
-src
+
 .idea
 .vscode
-tsconfig.json
-jest.config.js
+
 .eslintrc
 .prettierrc
+tsconfig.json
+jest.config.js
+
+node_modules
+src

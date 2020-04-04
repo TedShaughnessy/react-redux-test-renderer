@@ -1,8 +1,8 @@
 import { TestRendererBase } from './TestRendererBase';
-import { RenderMethods } from './RenderMethods';
-import { ComponentMethods } from './ComponentMethods';
-import { StateMethods } from './StateMethods';
-import { ActionMethods } from './ActionMethods';
+import { RenderMethods } from './methods/RenderMethods';
+import { ComponentMethods } from './methods/ComponentMethods';
+import { StateMethods } from './methods/StateMethods';
+import { ActionMethods } from './methods/ActionMethods';
 
 type PublicMethods<T> = { [K in keyof T]: T[K] };
 export type Methods = PublicMethods<RenderMethods & ComponentMethods & StateMethods & ActionMethods>;

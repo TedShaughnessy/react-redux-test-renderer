@@ -1,31 +1,36 @@
 {
-    "name": "int-tests",
-    "version": "0.0.1",
-    "description": "intergration tests for the react-redux-test-renderer package",
+    "name": "react-redux-test-renderer",
+    "version": "1.2.3",
+    "description": "simplified component rendering for react with redux",
     "author": "ted shaughnessy",
     "license": "MIT",
     "repository": {
-        "type": "local",
-        "url": ""
+        "type": "git",
+        "url": "https://github.com/TedShaughnessy/react-redux-test-renderer"
     },
+    "keywords": [
+        "react",
+        "redux",
+        "wrappers",
+        "renderer",
+        "test"
+    ],
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
-        "test": "jest -all"
+        "build": "tsc",
+        "lint": "eslint --ext=ts,tsx src --fix",
+        "pretty-check": "prettier -c \"src/**/*.{ts,tsx,js,jsx,json}\""
     },
-    "dependencies": {
+    "peerDependencies": {
+        "@types/react-redux": "^7",
         "@testing-library/dom": "^7",
         "@testing-library/react": "^10",
-        "@types/jest": "^25.2.1",
-        "@types/react-redux": "^7",
-        "jest": "^25.2.7",
         "react": "^16",
-        "react-dom": "^16.13.1",
-        "react-redux": "^7",
-        "react-redux-test-renderer": "file:package",
         "redux": "^4 || ^3",
-        "ts-jest": "^25.3.1"
+        "react-redux": "^7"
     },
     "devDependencies": {
-        "@babel/core": "^7.9.0",
         "@types/node": "^12.12.24",
         "@types/react": "^16.9.17",
         "@types/react-dom": "^16.8.4",
@@ -42,5 +47,8 @@
         "eslint-plugin-react": "^7.18.0",
         "prettier": "^1.18.2",
         "typescript": "^3.7.4"
+    },
+    "dependencies": {
+        "redux-mock-store": "^1"
     }
 }

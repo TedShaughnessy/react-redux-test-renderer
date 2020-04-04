@@ -1,5 +1,5 @@
-import { TestRendererBase } from './TestRendererBase';
-import { Action } from './types';
+import { TestRendererBase } from '../TestRendererBase';
+import { Action } from '../types';
 
 export class ActionMethods {
     private trb: TestRendererBase;

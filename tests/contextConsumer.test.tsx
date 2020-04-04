@@ -1,12 +1,24 @@
-import { defaultProps, defaultState, getNullSafeTextContent } from './testHelper';
-import { cleanup, TestRenderer } from '../index';
-import { TestContextConsumerComponent } from './testComponents/TestContextConsumerComponent';
-import { defaultContextState, TestContext } from './testComponents/TestContextProviderWrapper';
+import { TestRenderer } from 'react-redux-test-renderer';
+import { cleanup } from '@testing-library/react';
+import {
+  defaultProps,
+  defaultState,
+  getNullSafeTextContent
+} from './testHelper';
+import { TestContextConsumerComponent } from '../testComponents/TestContextConsumerComponent';
+import {
+  defaultContextState,
+  TestContext
+} from '../testComponents/TestContextProviderWrapper';
 
-const testComponentWithContext = new TestRenderer(TestContextConsumerComponent, defaultProps, defaultState);
+const testComponentWithContext = new TestRenderer(
+    TestContextConsumerComponent,
+    defaultProps,
+    defaultState
+);
 const contextValue = testComponentWithContext.addContextProvider(TestContext, {
     ...defaultContextState,
-    contextProp: 1,
+    contextProp: 1
 });
 
 const selector = 'body > div > h3';

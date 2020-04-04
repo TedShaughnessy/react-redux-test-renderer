@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
+import { useState } from 'react';
 import { propDefault, statePropDefault } from './Properties';
 
 type IProps = ITestProps & ITestMapStateToProps;
@@ -35,3 +36,15 @@ const mapStateToProps = (state: ITestMapStateToProps) => ({
 });
 
 export default connect(mapStateToProps)(TestComponent);
+
+export const Gg: React.FC<IProps> = () => {
+    // @ts-ignore
+    const g = useState();
+    return (
+        <>
+            <h1>hello</h1>
+            <h2>ty</h2>
+            <h3>g</h3>
+        </>
+    );
+};

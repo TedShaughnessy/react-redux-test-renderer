@@ -1,0 +1,1 @@
+export { TestRenderer } from './TestRenderer';

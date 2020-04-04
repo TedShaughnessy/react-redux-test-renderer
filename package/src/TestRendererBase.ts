@@ -1,8 +1,5 @@
-import { cleanup as RTLcleanup } from '@testing-library/react';
 import configureStore, { MockStore } from 'redux-mock-store';
 import { _component, IWrapper } from './types';
-
-export const cleanup = (): void => RTLcleanup();
 
 export class TestRendererBase {
     state: object | undefined;

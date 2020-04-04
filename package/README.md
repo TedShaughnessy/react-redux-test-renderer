@@ -51,7 +51,7 @@ describe('test', () => {
     it('routes to page', async () => {
         const result = testComponent
             .useWrapperProps(router, { initialEntries: [`/${route}/`] })
-            .renderWithStore();
+            .renderWithStore(Provider);
     
         await waitForElement(() => result.getByText('welcome to route'));
     });
@@ -59,7 +59,7 @@ describe('test', () => {
         const result = testComponent
             .useWrapperProps(router, { initialEntries: [`/${route}/`] })
             .useTemporaryWrapper(Container, {})
-            .renderWithStore();
+            .renderWithStore(Provider);
 
         // rerenders with existing component with temporary wrappers, takes newProps object
         const rerenderResult = result.rerender({});

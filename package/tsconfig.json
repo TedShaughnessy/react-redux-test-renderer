@@ -8,4 +8,7 @@
         "strict": true,
         "esModuleInterop": true
     },
+    "files": [
+        "src/index.ts",
+      ]
 }
