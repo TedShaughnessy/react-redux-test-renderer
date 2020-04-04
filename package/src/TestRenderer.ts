@@ -12,7 +12,7 @@ export class TestRenderer {
     /**
      * renders the test component
      * @param {object} props, if undefined will use default props
-     * @param {number} children, a react component of the test component children
+     * @param {any} children, a react component of the test component children
      * @returns {TestRendererResult}
      */
     render = (props?: object, children?: _component): TestRendererResult => this.methods.render(props, children);
@@ -21,7 +21,7 @@ export class TestRenderer {
      * renders the test component with a redux store provider
      * @param {object} props, if undefined will use default props
      * @param {object} state, if undefined will use default state
-     * @param {number} children, a react component of the test component children
+     * @param {any} children, a react component of the test component children
      * @returns {TestRendererResult}
      */
     renderWithStore = (props?: object, state?: object, children?: _component): TestRendererResultWithStore =>
@@ -32,7 +32,7 @@ export class TestRenderer {
      * is async to enable useEffect to detect state change
      * @param {object} state, the new state object for the redux store
      * @param {string} actionType, optional actionType to be used instead of TESTING_UPDATE_ACTION
-     * @returns {Promise<void>}
+     * @returns {Promise<void>} can optionally be awaited
      */
     updateStateWithDispatch = (state: object, actionType?: string): Promise<void> =>
         this.methods.updateStateWithDispatch(state, actionType);
@@ -42,7 +42,7 @@ export class TestRenderer {
      * returns an id that can be used with useWrapperProps to update this wrappers props
      * @param {component} component, the wrapper component
      * @param {object} props, optional props for the wrapper
-     * @returns {number}
+     * @returns {number} this number can be used with useWrapperProps to change wrapper properties for a single test
      */
     addWrapper = (component: _component, props?: object): number => this.methods.addWrapper(component, props);
 
@@ -50,7 +50,7 @@ export class TestRenderer {
      * wraps the existing test component and wrappers in a context provider
      * @param {React.Context<any>} context, the context to wrap the component and wrappers with
      * @param {object} value, the value of the context provider
-     * @returns {number}
+     * @returns {number} this number can be used with useContextValue to change the context value for a single test
      */
     addContextProvider = (context: React.Context<any>, value: object): number =>
         this.methods.addContextProvider(context, value);
@@ -60,7 +60,7 @@ export class TestRenderer {
      * returns the test component
      * @param {component} component, the wrapper component
      * @param {object} props, optional props for the wrapper
-     * @returns {TestRenderer}
+     * @returns {TestRenderer} chainable
      */
     addTemporaryWrapper = (component: _component, props: object): TestRenderer => {
         this.methods.addTemporaryWrapper(component, props);
@@ -72,7 +72,7 @@ export class TestRenderer {
      * returns the test component
      * @param {number} id, the wrappers id returned by addWrapper
      * @param {object} props, new props for the wrapper
-     * @returns {TestRenderer}
+     * @returns {TestRenderer} chainable
      */
     useWrapperProps = (id: number, props: object): TestRenderer => {
         this.methods.useWrapperProps(id, props);
@@ -84,7 +84,7 @@ export class TestRenderer {
      * returns the test component
      * @param {number} id, the wrappers id returned by addWrapper
      * @param {object} value, new value for the contextProvider
-     * @returns {TestRenderer}
+     * @returns {TestRenderer} chainable
      */
     useContextValue = (id: number, value: object): TestRenderer => {
         this.methods.useContextValue(id, value);

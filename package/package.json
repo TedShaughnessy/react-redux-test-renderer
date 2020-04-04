@@ -1,7 +1,7 @@
 {
     "name": "react-redux-test-renderer",
-    "version": "1.2.3",
-    "description": "simplified component rendering for react with redux",
+    "version": "2.0.0",
+    "description": "Simplifies testing with testing-library and redux",
     "author": "ted shaughnessy",
     "license": "MIT",
     "repository": {
@@ -11,8 +11,8 @@
     "keywords": [
         "react",
         "redux",
-        "wrappers",
-        "renderer",
+        "react-redux",
+        "testing-library",
         "test"
     ],
     "main": "dist/index.js",

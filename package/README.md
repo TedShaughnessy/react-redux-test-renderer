@@ -1,10 +1,16 @@
 # React-Redux-Test-Renderer
-simplifies the setup of components dependant on wrappers and providers
 
-## Simple Example (with jest and testing libary)
+- Simplifies the setup of components using redux, context and other wrappers.
+- It uses @testing-library and all its functionality is still available.
+- All methods have type declarations and descriptions.
+
+Please ensure your package versions are compatible with the peerDependancies required.
+
+## Simple Example
 
 ```typescript
-import { TestRenderer, cleanup } from 'react-redux-test-renderer';
+import { TestRenderer } from 'react-redux-test-renderer';
+import { cleanup } from '@testing-library/react';
 
 const testComponent = new TestRenderer(ReactComponent);
 
@@ -26,15 +32,15 @@ describe('test', () => {
 });
 ```
 
-
 ## Complex Examples
 
 ```typescript
-import { TestRenderer, cleanup } from 'react-redux-test-renderer';
+import { TestRenderer } from 'react-redux-test-renderer';
+import { cleanup } from '@testing-library/react';
 
 const testComponent = new TestRenderer(ReactComponent, initialProps, initialState);
 const router = testComponent.addWrapper(MemoryRouter, { initialEntries: ['/'] });
-testComponent.addContextProvider(Context, value);
+const context = testComponent.addContextProvider(Context, value);
 
 afterEach(cleanup);
 
@@ -48,9 +54,10 @@ describe('test', () => {
     
         expect(radio).not.toBeInTheDocument();
     });
-    it('routes to page', async () => {
+    it('routes to a page', async () => {
         const result = testComponent
             .useWrapperProps(router, { initialEntries: [`/${route}/`] })
+            .useContextValue(context)
             .renderWithStore(Provider);
     
         await waitForElement(() => result.getByText('welcome to route'));
@@ -61,7 +68,7 @@ describe('test', () => {
             .useTemporaryWrapper(Container, {})
             .renderWithStore(Provider);
 
-        // rerenders with existing component with temporary wrappers, takes newProps object
+        // rerenders with existing component with temporary wrappers, takes new properties
         const rerenderResult = result.rerender({});
         
         expect(something);
