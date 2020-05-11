@@ -14,6 +14,7 @@ import {
   statePropDefault,
   propDefault
 } from '../testComponents/Properties';
+import React from 'react';
 
 const testComponent = new TestRenderer(
     TestComponent,
@@ -25,8 +26,14 @@ const testComponent2 = new TestRenderer(TestComponent);
 afterEach(cleanup);
 
 describe('render works ', () => {
+    it('renders children', () => {
+        const result = testComponent.render(undefined, [<p key="1">1</p>, <p key="2">2</p>]);
+    
+            result.getByText('1');
+            result.getByText('2');
+        });
     it('overriding default props', () => {
-        const result = testComponent.render(differentProps);
+    const result = testComponent.render(differentProps);
 
         expect(getNullSafeTextContent(result, propSelector)).toEqual(
             propDifferentPassed

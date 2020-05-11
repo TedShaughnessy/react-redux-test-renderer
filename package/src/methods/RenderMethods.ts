@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import { createElement, ReactNode } from 'react';
 import { render as RTLrender } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { _component, TestRendererResult, TestRendererResultWithStore, IWrapper } from '../types';
@@ -11,7 +11,7 @@ export class RenderMethods {
         this.trb = testRendererBase;
     }
 
-    render = (props?: object, children?: _component): TestRendererResult => {
+    render = (props?: object, children?: ReactNode[]): TestRendererResult => {
         const usingTemporaryWrappers = this.trb.useTemporaryWrappers;
         const renderResult = RTLrender(this.buildComponent(props, children));
 
@@ -24,7 +24,7 @@ export class RenderMethods {
         };
     };
 
-    renderWithStore = (props?: object, state?: object, children?: _component): TestRendererResultWithStore => {
+    renderWithStore = (props?: object, state?: object, children?: ReactNode[]): TestRendererResultWithStore => {
         this.trb.setState(state);
         const store = this.trb.setStore();
         const usingTemporaryWrappers = this.trb.useTemporaryWrappers;
@@ -43,7 +43,7 @@ export class RenderMethods {
         };
     };
 
-    private buildComponent = (props?: object, children?: _component): _component => {
+    private buildComponent = (props?: object, children?: ReactNode[]): _component => {
         const component = this.createBaseComponent(props, children);
 
         if (this.trb.useTemporaryWrappers) {
@@ -67,9 +67,9 @@ export class RenderMethods {
     private wrapWithWrapper = (component: _component, wrapper: IWrapper): _component =>
         createElement(wrapper.component, { ...wrapper.props }, component);
 
-    private wrapWithProvider = (store: any, childComponent: _component): _component =>
+    private wrapWithProvider = (store: any, childComponent: ReactNode): _component =>
         this.wrapWithWrapper(childComponent, { component: Provider, props: { store }, type: 'provider' });
 
-    private createBaseComponent = (props?: object, children?: _component): _component =>
-        createElement(this.trb.component, props || this.trb.defaultProps, children);
+    private createBaseComponent = (props?: object, children: ReactNode[] = []): _component =>
+        createElement(this.trb.component, props || this.trb.defaultProps, ...children);
 }

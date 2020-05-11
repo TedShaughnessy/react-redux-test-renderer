@@ -13,6 +13,7 @@ export const TestComponent: React.FC<IProps> = props => {
             <h1>hello</h1>
             <h2>{props.prop}</h2>
             <h3>{props.stateProp}</h3>
+            {props.children}
         </>
     );
 };
@@ -36,15 +37,3 @@ const mapStateToProps = (state: ITestMapStateToProps) => ({
 });
 
 export default connect(mapStateToProps)(TestComponent);
-
-export const Gg: React.FC<IProps> = () => {
-    // @ts-ignore
-    const g = useState();
-    return (
-        <>
-            <h1>hello</h1>
-            <h2>ty</h2>
-            <h3>g</h3>
-        </>
-    );
-};

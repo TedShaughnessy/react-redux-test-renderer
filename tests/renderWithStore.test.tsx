@@ -18,6 +18,7 @@ import {
   statePropDefault,
   statePropDifferentPassed
 } from '../testComponents/Properties';
+import React from 'react';
 
 const connectedTestComponent = new TestRenderer(
     ConnectedTestComponent,
@@ -29,6 +30,12 @@ const connectedTestComponent2 = new TestRenderer(ConnectedTestComponent);
 afterEach(cleanup);
 
 describe('renderWithStore works ', () => {
+    it('renders children', () => {
+        const result = connectedTestComponent.renderWithStore(undefined, undefined, [<p key="1">1</p>, <p key="2">2</p>]);
+    
+            result.getByText('1');
+            result.getByText('2');
+        });
     it('with default props', () => {
         const result = connectedTestComponent.renderWithStore();
 

@@ -8,7 +8,7 @@ Please ensure your package versions are compatible with the peerDependancies req
 
 ## Simple Example
 
-```typescript
+```tsx
 import { TestRenderer } from 'react-redux-test-renderer';
 import { cleanup } from '@testing-library/react';
 
@@ -28,6 +28,13 @@ describe('test', () => {
         
         expect(actions.length).toBe(1);
         expect(buttonAction.length).toBe(1);
+    });
+        it('renders children', () => {
+        const result = testComponent.render(undefined, [<p key="1">1</p>, <p key="2">2</p>]);
+    
+            result.getByText('1');
+            result.getByText('2');
+        });
     });
 });
 ```
