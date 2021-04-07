@@ -1,7 +1,7 @@
 import configureStore, { MockStore } from 'redux-mock-store';
 import { _component, IWrapper } from './types';
 
-export class TestRendererBase {
+export class TestRendererState {
     state: object | undefined;
 
     mockStore: any;

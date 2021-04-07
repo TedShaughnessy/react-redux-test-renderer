@@ -1,28 +1,28 @@
 import * as React from 'react';
 import { _component } from '../types';
-import { TestRendererBase } from '../TestRendererBase';
+import { TestRendererState } from '../TestRendererState';
 
 export class ComponentMethods {
-    private trb: TestRendererBase;
+    private trs: TestRendererState;
 
-    constructor(testRendererBase: TestRendererBase) {
-        this.trb = testRendererBase;
+    constructor(testRendererState: TestRendererState) {
+        this.trs = testRendererState;
     }
 
     addWrapper = (component: _component, props?: object): number => {
-        this.trb.wrappers.push({ component, props: props ?? {}, type: 'component' });
-        return this.trb.wrappers.length - 1;
+        this.trs.wrappers.push({ component, props: props ?? {}, type: 'component' });
+        return this.trs.wrappers.length - 1;
     };
 
     addContextProvider = (context: React.Context<any>, value: object): number => {
-        this.trb.wrappers.push({ component: context.Provider, props: { value }, type: 'context' });
-        return this.trb.wrappers.length - 1;
+        this.trs.wrappers.push({ component: context.Provider, props: { value }, type: 'context' });
+        return this.trs.wrappers.length - 1;
     };
 
     addTemporaryWrapper = (component: _component, props: object): void => {
         this.createTemporaryWrappers();
 
-        this.trb.temporaryWrappers.push({ component, props, type: 'component' });
+        this.trs.temporaryWrappers.push({ component, props, type: 'component' });
 
         this.enableTemporaryWrappers();
     };
@@ -33,11 +33,11 @@ export class ComponentMethods {
         if (!this.isValidIndex(id)) {
             throw Error(
                 `useWrapperProps 'id' is not valid, id is: ${id} ` +
-                    `the wrapper array has a length of ${this.trb.temporaryWrappers.length}`
+                    `the wrapper array has a length of ${this.trs.temporaryWrappers.length}`
             );
         }
 
-        const wrapperArray = this.trb.temporaryWrappers;
+        const wrapperArray = this.trs.temporaryWrappers;
 
         if (wrapperArray[id].type !== 'component') {
             throw Error(
@@ -56,11 +56,11 @@ export class ComponentMethods {
         if (!this.isValidIndex(id)) {
             throw Error(
                 `useContextValue 'id' is not valid, id is: ${id} ` +
-                    `the wrapper array has a length of ${this.trb.temporaryWrappers.length}`
+                    `the wrapper array has a length of ${this.trs.temporaryWrappers.length}`
             );
         }
 
-        const wrapperArray = this.trb.temporaryWrappers;
+        const wrapperArray = this.trs.temporaryWrappers;
 
         if (wrapperArray[id].type !== 'context') {
             throw Error(`useContextValue 'id' refers to a a type of '${wrapperArray[id].type}' not of type 'context'`);
@@ -72,14 +72,14 @@ export class ComponentMethods {
     };
 
     private enableTemporaryWrappers = (): void => {
-        this.trb.useTemporaryWrappers = true;
+        this.trs.useTemporaryWrappers = true;
     };
 
     private createTemporaryWrappers = (): void => {
-        if (!this.trb.useTemporaryWrappers) {
-            this.trb.temporaryWrappers = [...this.trb.wrappers];
+        if (!this.trs.useTemporaryWrappers) {
+            this.trs.temporaryWrappers = [...this.trs.wrappers];
         }
     };
 
-    private isValidIndex = (id: number): boolean => id >= 0 && id < this.trb.temporaryWrappers.length;
+    private isValidIndex = (id: number): boolean => id >= 0 && id < this.trs.temporaryWrappers.length;
 }

@@ -1,20 +1,20 @@
-import { TestRendererBase } from '../TestRendererBase';
+import { TestRendererState } from '../TestRendererState';
 import { Action } from '../types';
 
 export class ActionMethods {
-    private trb: TestRendererBase;
+    private trs: TestRendererState;
 
-    constructor(testRendererBase: TestRendererBase) {
-        this.trb = testRendererBase;
+    constructor(testRendererState: TestRendererState) {
+        this.trs = testRendererState;
     }
 
-    getAllActions = (): Action[] => this.trb.mockStore.getActions();
+    getAllActions = (): Action[] => this.trs.mockStore.getActions();
 
     getActionsOfType = (actionType: string): Action[] =>
-        this.trb.mockStore.getActions().filter((action: Action) => action.type === actionType);
+        this.trs.mockStore.getActions().filter((action: Action) => action.type === actionType);
 
-    getCountForAllActions = (): number => this.trb.mockStore.getActions().length;
+    getCountForAllActions = (): number => this.trs.mockStore.getActions().length;
 
     getCountForAction = (actionType: string): number =>
-        this.trb.mockStore.getActions().filter((action: Action) => action.type === actionType).length;
+        this.trs.mockStore.getActions().filter((action: Action) => action.type === actionType).length;
 }

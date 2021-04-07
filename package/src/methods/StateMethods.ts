@@ -1,15 +1,15 @@
-import { TestRendererBase } from '../TestRendererBase';
+import { TestRendererState } from '../TestRendererState';
 
 export class StateMethods {
-    private trb: TestRendererBase;
+    private trs: TestRendererState;
 
-    constructor(testRendererBase: TestRendererBase) {
-        this.trb = testRendererBase;
+    constructor(testRendererState: TestRendererState) {
+        this.trs = testRendererState;
     }
 
     updateStateWithDispatch = async (state: object, actionType?: string): Promise<void> => {
-        this.trb.setState(state);
-        this.trb.mockStore.dispatch({ type: actionType ?? 'TESTING_UPDATE_ACTION' });
+        this.trs.setState(state);
+        this.trs.mockStore.dispatch({ type: actionType ?? 'TESTING_UPDATE_ACTION' });
         // asynchronous function allows react to run useEffects
         await new Promise(_ => setTimeout(() => {}, 1));
     };
