@@ -2,32 +2,32 @@ import { createElement, ReactNode } from 'react';
 import { render as RTLrender } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { _component, TestRendererResult, TestRendererResultWithStore, IWrapper } from '../types';
-import { TestRendererBase } from '../TestRendererBase';
+import { TestRendererState } from '../TestRendererState';
 
 export class RenderMethods {
-    private trb: TestRendererBase;
+    private trs: TestRendererState;
 
-    constructor(testRendererBase: TestRendererBase) {
-        this.trb = testRendererBase;
+    constructor(testRendererState: TestRendererState) {
+        this.trs = testRendererState;
     }
 
     render = (props?: object, children?: ReactNode[]): TestRendererResult => {
-        const usingTemporaryWrappers = this.trb.useTemporaryWrappers;
+        const usingTemporaryWrappers = this.trs.useTemporaryWrappers;
         const renderResult = RTLrender(this.buildComponent(props, children));
 
         return {
             ...renderResult,
             rerender: (newProps: object): void => {
-                this.trb.useTemporaryWrappers = usingTemporaryWrappers;
+                this.trs.useTemporaryWrappers = usingTemporaryWrappers;
                 renderResult.rerender(this.buildComponent(newProps, children));
             },
         };
     };
 
     renderWithStore = (props?: object, state?: object, children?: ReactNode[]): TestRendererResultWithStore => {
-        this.trb.setState(state);
-        const store = this.trb.setStore();
-        const usingTemporaryWrappers = this.trb.useTemporaryWrappers;
+        this.trs.setState(state);
+        const store = this.trs.setStore();
+        const usingTemporaryWrappers = this.trs.useTemporaryWrappers;
 
         const wrappedComponent = this.wrapWithProvider(store, this.buildComponent(props, children));
 
@@ -37,7 +37,7 @@ export class RenderMethods {
             ...renderResult,
             store,
             rerender: (newProps: object): void => {
-                this.trb.useTemporaryWrappers = usingTemporaryWrappers;
+                this.trs.useTemporaryWrappers = usingTemporaryWrappers;
                 return renderResult.rerender(this.wrapWithProvider(store, this.buildComponent(newProps, children)));
             },
         };
@@ -46,12 +46,12 @@ export class RenderMethods {
     private buildComponent = (props?: object, children?: ReactNode[]): _component => {
         const component = this.createBaseComponent(props, children);
 
-        if (this.trb.useTemporaryWrappers) {
-            this.trb.useTemporaryWrappers = false;
-            return this.wrapWithWrapperArray(this.trb.temporaryWrappers, component);
+        if (this.trs.useTemporaryWrappers) {
+            this.trs.useTemporaryWrappers = false;
+            return this.wrapWithWrapperArray(this.trs.temporaryWrappers, component);
         }
 
-        return this.wrapWithWrapperArray(this.trb.wrappers, component);
+        return this.wrapWithWrapperArray(this.trs.wrappers, component);
     };
 
     private wrapWithWrapperArray = (array: IWrapper[], component: _component): _component => {
@@ -71,5 +71,5 @@ export class RenderMethods {
         this.wrapWithWrapper(childComponent, { component: Provider, props: { store }, type: 'provider' });
 
     private createBaseComponent = (props?: object, children: ReactNode[] = []): _component =>
-        createElement(this.trb.component, props || this.trb.defaultProps, ...children);
+        createElement(this.trs.component, props || this.trs.defaultProps, ...children);
 }

@@ -1,6 +1,6 @@
 {
     "name": "react-redux-test-renderer",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "description": "Simplifies testing with testing-library and redux",
     "author": "ted shaughnessy",
     "license": "MIT",
@@ -25,16 +25,15 @@
     "peerDependencies": {
         "@types/react-redux": "^7",
         "@testing-library/dom": "^7",
-        "@testing-library/react": "^10",
-        "react": "^16",
-        "redux": "^4 || ^3",
+        "@testing-library/react": "^11",
+        "react": "^17",
+        "redux": "^4",
         "react-redux": "^7"
     },
     "devDependencies": {
-        "@types/node": "^12.12.24",
-        "@types/react": "^16.9.17",
-        "@types/react-dom": "^16.8.4",
-        "@types/redux-mock-store": "^1.0.1",
+        "@types/react": "^17",
+        "@types/react-dom": "^17",
+        "@types/redux-mock-store": "^1",
         "@typescript-eslint/eslint-plugin": "^2.16.0",
         "@typescript-eslint/parser": "^2.16.0",
         "eslint": "^6.8.0",
@@ -42,11 +41,9 @@
         "eslint-config-prettier": "^6.9.0",
         "eslint-config-react": "^1.1.7",
         "eslint-plugin-import": "^2.20.0",
-        "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-prettier": "^3.1.1",
-        "eslint-plugin-react": "^7.18.0",
         "prettier": "^1.18.2",
-        "typescript": "^3.7.4"
+        "typescript": "^4"
     },
     "dependencies": {
         "redux-mock-store": "^1"

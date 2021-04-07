@@ -21,11 +21,10 @@
         "@typescript-eslint/no-unused-vars": ["error", {"args": "all", "argsIgnorePattern": "^_"}],
         "@typescript-eslint/ban-ts-ignore": ["warn"],
         "linebreak-style": ["off"],
-        "@typescript-eslint/indent": ["error", 4],
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],
         "max-len": ["error", 120],
-        "import/prefer-default-export": ["off"]
+        "import/prefer-default-export": ["off"],
     },
     "settings": {
         "react": {

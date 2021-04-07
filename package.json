@@ -1,7 +1,7 @@
 {
     "name": "int-tests",
     "version": "0.0.1",
-    "description": "intergration tests for the react-redux-test-renderer package",
+    "description": "integration tests for the react-redux-test-renderer package",
     "author": "ted shaughnessy",
     "license": "MIT",
     "repository": {
@@ -13,23 +13,22 @@
     },
     "dependencies": {
         "@testing-library/dom": "^7",
-        "@testing-library/react": "^10",
+        "@testing-library/react": "^11",
         "@types/jest": "^25.2.1",
         "@types/react-redux": "^7",
         "jest": "^25.2.7",
-        "react": "^16",
-        "react-dom": "^16.13.1",
+        "react": "^17",
+        "react-dom": "^17",
         "react-redux": "^7",
         "react-redux-test-renderer": "file:package",
-        "redux": "^4 || ^3",
+        "redux": "^4",
         "ts-jest": "^25.3.1"
     },
     "devDependencies": {
         "@babel/core": "^7.9.0",
-        "@types/node": "^12.12.24",
-        "@types/react": "^16.9.17",
-        "@types/react-dom": "^16.8.4",
-        "@types/redux-mock-store": "^1.0.1",
+        "@types/react": "^17",
+        "@types/react-dom": "^17",
+        "@types/redux-mock-store": "^1",
         "@typescript-eslint/eslint-plugin": "^2.16.0",
         "@typescript-eslint/parser": "^2.16.0",
         "eslint": "^6.8.0",
@@ -41,6 +40,6 @@
         "eslint-plugin-prettier": "^3.1.1",
         "eslint-plugin-react": "^7.18.0",
         "prettier": "^1.18.2",
-        "typescript": "^3.7.4"
+        "typescript": "^4"
     }
 }
