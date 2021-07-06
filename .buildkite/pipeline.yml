@@ -6,7 +6,7 @@ env:
   PULL_REQUEST_BASE_BRANCH: ${BUILDKITE_PULL_REQUEST_BASE_BRANCH}
 steps:
   - label: ':jest: Jest • :eslint: ESLint • :typescript: TypeScript'
-    command: ./scripts/test.sh
+    command: .\scripts\test.sh
     artifact_paths:
       - 'coverage/**'
 
