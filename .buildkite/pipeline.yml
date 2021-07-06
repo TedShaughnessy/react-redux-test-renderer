@@ -1,0 +1,14 @@
+name: 'react-redux-test-renderer'
+env:
+  GIT_BRANCH: ${BUILDKITE_BRANCH}
+  GIT_PULL_REQUEST: ${BUILDKITE_PULL_REQUEST}
+  BUILD_NUMBER: ${BUILDKITE_BUILD_NUMBER}
+  PULL_REQUEST_BASE_BRANCH: ${BUILDKITE_PULL_REQUEST_BASE_BRANCH}
+steps:
+  - label: ':jest: Jest • :eslint: ESLint • :typescript: TypeScript'
+    command: scripts/test.sh
+    artifact_paths:
+      - 'coverage/**'
+
+  # - block: ':npm: Publish to NPM'
+  #   branches: 'master'
