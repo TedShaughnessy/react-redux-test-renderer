@@ -9,7 +9,11 @@
         "url": ""
     },
     "scripts": {
-        "test": "jest -all"
+        "test": "jest -all --coverage",
+        "build": "cd package && npm run build",
+        "lint": "cd package && npm run lint",
+        "pretty-check": "cd package && npm run pretty-check",
+        "postinstall": "cd package && npm i"
     },
     "dependencies": {
         "@testing-library/dom": "^7",
