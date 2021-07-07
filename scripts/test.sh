@@ -1,14 +1,12 @@
 #!/bin/bash -eu
 
-function container() {
-  docker-compose run --rm $@
-}
+source scripts/_functions.sh
 
 echo "--- installing dependencies"
-container node npm i
+container npm i
 
 echo "--- building package"
-container node npm run build
+container npm run build
 
 echo "--- running integration tests"
-container node npm test
+container npm test

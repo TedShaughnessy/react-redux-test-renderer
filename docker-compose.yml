@@ -1,9 +1,16 @@
 version: "3"
 
 services:
-  node:
+  test:
     image: node:10.24.1-alpine
     working_dir: /work
     volumes:
       - .:/work
+    command: sh
+
+  publish:
+    image: node:10.24.1-alpine
+    working_dir: /work
+    volumes:
+      - .:/work/package
     command: sh

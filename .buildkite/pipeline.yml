@@ -10,5 +10,9 @@ steps:
     artifact_paths:
       - 'coverage/**'
 
-  # - block: ':npm: Publish to NPM'
-  #   branches: 'master'
+  - block: ':npm: Publish to NPM'
+    branches: 'pipeline'
+
+  - label: ':jest: Jest • :eslint: ESLint • :typescript: TypeScript'
+    command: .\scripts\publish.sh
+    branches: 'pipeline'
