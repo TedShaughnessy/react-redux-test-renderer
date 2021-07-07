@@ -3,15 +3,37 @@
 
 [![Build status](https://badge.buildkite.com/6e35b17cae34535762b1a77b9dd64d24b53e84ed1fd9005ef1.svg?branch=master)](https://buildkite.com/tedshaughnessy/react-redux-test-renderer)
 
+Extends and works with an existing `@test-library/react` installation
+
+Simplifies the test setup of components using wrappers like Redux, React-Context and more.
+
+---
+
+## Installation
+
 </div>
 
--   Simplifies the setup of components using redux, context and other wrappers.
--   It uses @testing-library and all its functionality is still available.
--   All methods have type declarations and descriptions.
+```
+npm install --save-dev react-redux-test-renderer
+```
 
-Please ensure your package versions are compatible with the peerDependancies required.
+To ensure everything plays nice, make sure you have the following dependancies already installed:
+
+-   `@testing-library/dom`
+-   `@testing-library/react`
+-   `react`
+-   `redux`
+-   `react-redux`
+
+The package is tested against the versions listed in the `peerDependencies` section of the [package.json](package.json), it's flexible since it uses the package versions you're already using.
+
+<div align="center">
 
 ## Simple Example
+
+---
+
+</div>
 
 ```tsx
 import { TestRenderer } from 'react-redux-test-renderer';
@@ -44,7 +66,13 @@ describe('test', () => {
 });
 ```
 
-## Complex Examples
+<div align="center">
+
+## Complex Example
+
+---
+
+</div>
 
 ```typescript
 import { TestRenderer } from 'react-redux-test-renderer';
