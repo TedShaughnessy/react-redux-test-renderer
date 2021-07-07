@@ -4,15 +4,16 @@ env:
   GIT_PULL_REQUEST: ${BUILDKITE_PULL_REQUEST}
   BUILD_NUMBER: ${BUILDKITE_BUILD_NUMBER}
   PULL_REQUEST_BASE_BRANCH: ${BUILDKITE_PULL_REQUEST_BASE_BRANCH}
+  NPM_TOKEN: ${NPM_TOKEN}
 steps:
   - label: ':jest: Jest • :eslint: ESLint • :typescript: TypeScript'
     command: .\scripts\test.sh
     artifact_paths:
       - 'coverage/**'
 
-  - block: ':npm: Publish to NPM'
+  - block: ':npm: Publish to NPM?'
     branches: 'pipeline'
 
-  - label: ':jest: Jest • :eslint: ESLint • :typescript: TypeScript'
+  - label: ':npm: Publishing to NPM'
     command: .\scripts\publish.sh
     branches: 'pipeline'
