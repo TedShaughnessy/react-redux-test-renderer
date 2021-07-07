@@ -9,4 +9,4 @@ echo "--- building package"
 container npm run build
 
 echo "--- running integration tests"
-container npm test
+container npm run test
