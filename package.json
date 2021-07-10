@@ -17,7 +17,6 @@
         "postinstall": "cd package && npm i"
     },
     "dependencies": {
-        "@testing-library/dom": "^7",
         "@testing-library/react": "^11",
         "@types/jest": "^25.2.1",
         "@types/react-redux": "^7",
