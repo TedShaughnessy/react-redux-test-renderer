@@ -7,11 +7,12 @@ Extends and works with an existing `@test-library/react` installation
 
 Simplifies the test setup of components using wrappers like Redux, React-Context and more.
 
----
+<br>
+</div>
 
 ## Installation
 
-</div>
+
 
 ```
 npm install --save-dev react-redux-test-renderer
@@ -19,7 +20,6 @@ npm install --save-dev react-redux-test-renderer
 
 To ensure everything plays nice, make sure you have the following dependancies already installed:
 
--   `@testing-library/dom`
 -   `@testing-library/react`
 -   `react`
 -   `redux`
@@ -27,13 +27,11 @@ To ensure everything plays nice, make sure you have the following dependancies a
 
 The package is tested against the versions listed in the `peerDependencies` section of the [package.json](package.json), it's flexible since it uses the package versions you're already using.
 
-<div align="center">
+<br>
 
-## Simple Example
+## Examples:
 
----
-
-</div>
+### Rendering a Simple Component
 
 ```tsx
 import { TestRenderer } from 'react-redux-test-renderer';
@@ -45,9 +43,11 @@ afterEach(cleanup);
 
 describe('test', () => {
     it('dispatches action when clicked', () => {
-        const result = testComponent.render();
+        
+        // all the things you get from a test-libary render are also returned from this render
+        const { getByTestId } = testComponent.render();
 
-        const button = result.queryselector('#button');
+        const button = getByTestId('buttonId');
         fireEvent.click(button);
 
         const actions = testComponent.getCountForAllActions();
@@ -56,62 +56,138 @@ describe('test', () => {
         expect(actions.length).toBe(1);
         expect(buttonAction.length).toBe(1);
     });
-        it('renders children', () => {
-        const result = testComponent.render(undefined, [<p key="1">1</p>, <p key="2">2</p>]);
-
-            result.getByText('1');
-            result.getByText('2');
-        });
-    });
 });
 ```
 
-<div align="center">
+### Passing Children
 
-## Complex Example
+``` tsx
+    it('renders children', () => {
 
----
+        const children = [<p key="1">1</p>, <p key="2">2</p>];
+        const { getByText } = testComponent.render(undefined, children);
 
-</div>
+        getByText('1');
+        getByText('2');
+    });
+```
 
-```typescript
-import { TestRenderer } from 'react-redux-test-renderer';
-import { cleanup } from '@testing-library/react';
+### Setting Default Props
 
+``` tsx
+const defaultProps = {
+    toggled: true
+}
+
+const testComponent = new TestRenderer(ReactComponent, defaultProps);
+
+it('is toggled', () => {
+
+    const { getByTestId } = testComponent.render();
+
+    expect(getByTestId('toggleId')).toBe(toggled);
+});
+
+it('is not toggled', () => {
+
+    const { getByTestId } = testComponent.render({ toggled: false });
+
+    expect(getByTestId('toggleId')).not.toBe(toggled);
+});
+```
+
+### Rendering with a Redux Store
+
+``` tsx
+const defaultProps = {
+    toggled: true
+}
+
+const defaultState = {
+    isSwitched: true
+}
+
+const testComponent = new TestRenderer(ReactComponent, defaultProps, defaultState);
+
+it('is switched', () => {
+    // render using default props and default store
+    const { getByTestId } = testComponent.renderWithStore();
+
+    expect(getByTestId('switchId')).toBe(switchedOn);
+});
+
+it('is not switched', () => {
+    // render using default props and a different state
+    const { getByTestId } = testComponent.render(undefined, { isSwitched: false });
+
+    // if props or state are set to undefined or null the default values will be used. Use and empty object {} to remove all props or state
+
+    expect(getByTestId('switchId')).not.toBe(switchedOn);
+});
+```
+
+### Updating the Redux Store (and triggering a render)
+
+``` tsx
+it('updates switch when state changes', () => {
+    // render using default props and default store
+    const { getByTestId } = testComponent.renderWithStore();
+
+    expect(getByTestId('switchId')).toBe(switchedOn);
+
+    // this method dispatches an Action to trigger the render
+    // it can be awaited, but doesn't usually need to be
+    testComponent.updateStateWithDispatch({...defaultState, isSwitchedOn: false});
+
+    expect(getByTestId('switchId')).not.toBe(switchedOn);
+});
+```
+
+## Simpler Rerender
+
+``` tsx
+it('needs to render again', () => {
+    testComponent.render();
+
+    // works like the usual rerender, just with fewer steps
+    // (temporary wrappers are still used)
+    const rerenderResult = result.rerender({...defaultProps});
+});
+
+```
+
+## Wrappers
+
+``` tsx
 const testComponent = new TestRenderer(ReactComponent, initialProps, initialState);
-const router = testComponent.addWrapper(MemoryRouter, { initialEntries: ['/'] });
-const context = testComponent.addContextProvider(Context, value);
+const routerId = testComponent.addWrapper(MemoryRouter, { initialEntries: ['/'] });
+const contextId = testComponent.addContextProvider(Context, value);
 
 afterEach(cleanup);
 
 describe('test', () => {
-    it('action hides button', async () => {
+    it('wrapped', () => {
+        // wrappers from top down: Redux -> ReactContext -> Router -> TestComponent
         const result = testComponent.renderWithStore();
-        const radio = result.baseElement.querySelector('#radioButton');
-
-        expect(radio).toBeInTheDocument();
-        await testComponent.updateStateWithDispatch({ ...initialState, buttonHidden: true });
-
-        expect(radio).not.toBeInTheDocument();
     });
-    it('routes to a page', async () => {
+    it('routes to a page', () => {
+        // when adding a wrapper an ID is returned. The ID can be used to change wrapper props/state before a render
         const result = testComponent
-            .useWrapperProps(router, { initialEntries: [`/${route}/`] })
-            .useContextValue(context)
-            .renderWithStore(Provider);
+            .useWrapperProps(routerId, { initialEntries: [`/${route}/`] })
+            .useContextValue(contextId, { somethingDifferent: true })
+            .renderWithStore();
 
         await waitForElement(() => result.getByText('welcome to route'));
     });
-    it('uses rerender and a temporary wrapper for an example', async () => {
+    it('uses rerender and a temporary wrapper for an example', () => {
+        // I'm not sure who asked for it but you can add a wrapper that only lasts for one render
         const result = testComponent
-            .useWrapperProps(router, { initialEntries: [`/${route}/`] })
             .useTemporaryWrapper(Container, {})
-            .renderWithStore(Provider);
-
-        // rerenders with existing component with temporary wrappers, takes new properties
-        const rerenderResult = result.rerender({});
+            .renderWithStore();
 
         expect(something);
     });
 });
 ```
+
+- for further examples see the integration tests, happy testing :)
