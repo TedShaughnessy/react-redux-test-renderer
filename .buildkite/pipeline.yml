@@ -7,9 +7,10 @@ env:
   NPM_TOKEN: ${NPM_TOKEN}
 steps:
   - label: ':jest: Jest • :eslint: ESLint • :typescript: TypeScript'
-    command: .\scripts\test.sh
+    command: .\scripts\test.sh | tee build.log
     artifact_paths:
       - 'coverage/**'
+      - 'build.log'
 
   - block: ':npm: Publish to NPM?'
     branches: 'pipeline'
