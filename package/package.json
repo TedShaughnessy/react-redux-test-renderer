@@ -23,7 +23,6 @@
         "pretty-check": "prettier -c \"src/**/*.{ts,tsx,js,jsx,json}\""
     },
     "peerDependencies": {
-        "@testing-library/dom": "^7",
         "@testing-library/react": "^11",
         "react": "^17",
         "redux": "^4",
