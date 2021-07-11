@@ -1,6 +1,6 @@
 {
     "name": "react-redux-test-renderer",
-    "version": "3.0.1",
+    "version": "3.0.3",
     "description": "Simplifies testing with testing-library and redux",
     "author": "ted shaughnessy",
     "license": "MIT",
