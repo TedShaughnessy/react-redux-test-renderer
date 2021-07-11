@@ -20,3 +20,7 @@ steps:
   - label: ':npm: Publishing to NPM'
     command: .\scripts\publish.sh
     branches: 'pipeline'
+    artifact_paths:
+      - 'test.log'
+      - 'publish.log'
+      
