@@ -13,7 +13,7 @@
     "react-redux": "^7"
 ```
 
-## 3.0.1
+## 3.0.3
 
 -   added pipeline
 -   updated README's
