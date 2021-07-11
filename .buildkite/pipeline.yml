@@ -21,6 +21,7 @@ steps:
     command: .\scripts\publish.sh
     branches: 'pipeline'
     artifact_paths:
-      - 'test.log'
+      - 'install.log'
+      - 'build.log'
       - 'publish.log'
       
