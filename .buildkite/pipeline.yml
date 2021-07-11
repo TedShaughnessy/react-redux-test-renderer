@@ -15,11 +15,11 @@ steps:
       - 'test.log'
 
   - block: ':npm: Publish to NPM?'
-    branches: 'pipeline'
+    branches: 'master'
 
   - label: ':npm: Publishing to NPM'
     command: .\scripts\publish.sh
-    branches: 'pipeline'
+    branches: 'master'
     artifact_paths:
       - 'install.log'
       - 'build.log'

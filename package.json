@@ -13,7 +13,7 @@
         "build": "cd package && npm run build",
         "lint": "cd package && npm run lint",
         "pretty-check": "cd package && npm run pretty-check",
-        "publish-package": "cd package && npm whoami",
+        "publish-package": "cd package && npm publish",
         "postinstall": "cd package && npm i"
     },
     "dependencies": {
