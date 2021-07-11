@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  container:
+    image: node:10.24.1-alpine
+    working_dir: /work
+    volumes:
+      - .:/work
+    command: sh
+    environment:
+      - NPM_TOKEN

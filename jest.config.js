@@ -3,4 +3,7 @@ module.exports = {
     transform: {
         '^.+\\.tsx?$': 'ts-jest',
     },
+    collectCoverageFrom: [
+        "package/dist/**",
+      ]
 };

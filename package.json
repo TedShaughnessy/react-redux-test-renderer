@@ -9,10 +9,14 @@
         "url": ""
     },
     "scripts": {
-        "test": "jest -all"
+        "test": "jest -all --coverage",
+        "build": "cd package && npm run build",
+        "lint": "cd package && npm run lint",
+        "pretty-check": "cd package && npm run pretty-check",
+        "publish-package": "cd package && npm publish",
+        "postinstall": "cd package && npm i"
     },
     "dependencies": {
-        "@testing-library/dom": "^7",
         "@testing-library/react": "^11",
         "@types/jest": "^25.2.1",
         "@types/react-redux": "^7",
