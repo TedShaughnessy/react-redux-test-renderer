@@ -7,7 +7,7 @@ env:
   NPM_TOKEN: ${NPM_TOKEN}
 steps:
   - label: ':jest: Jest • :eslint: ESLint • :typescript: TypeScript'
-    command: .\scripts\test.sh | tee build.log
+    command: .\scripts\test.sh
     artifact_paths:
       - 'coverage/**'
       - 'build.log'
