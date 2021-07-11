@@ -2,11 +2,11 @@
 
 source scripts/_functions.sh
 
-echo "--- installing dependencies"
+echo "--- installing dependencies" | tee install.log
 container npm i
 
 echo "--- building package"
-container npm run build
+container npm run build | tee build.log
 
 echo "--- running integration tests"
-container npm run test
+container npm run test | tee test.log

@@ -10,7 +10,9 @@ steps:
     command: .\scripts\test.sh
     artifact_paths:
       - 'coverage/**'
+      - 'install.log'
       - 'build.log'
+      - 'test.log'
 
   - block: ':npm: Publish to NPM?'
     branches: 'pipeline'
