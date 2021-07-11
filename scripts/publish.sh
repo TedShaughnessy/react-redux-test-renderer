@@ -9,4 +9,4 @@ echo "--- building package"
 container npm run build | tee build.log
 
 echo "--- publishing package"
-container npm run publish-package | publish.log
+container npm run publish-package | tee publish.log
