@@ -29,12 +29,11 @@ export class TestRenderer {
 
     /**
      * updates state and triggers state to be reflowed by dispatching an action of type TESTING_UPDATE_ACTION
-     * is async to enable useEffect to detect state change
      * @param {object} state, the new state object for the redux store
      * @param {string} actionType, optional actionType to be used instead of TESTING_UPDATE_ACTION
-     * @returns {Promise<void>} can optionally be awaited
+     * @returns {void}
      */
-    updateStateWithDispatch = (state: object, actionType?: string): Promise<void> =>
+    updateStateWithDispatch = (state: object, actionType?: string): void =>
         this.methods.updateStateWithDispatch(state, actionType);
 
     /**

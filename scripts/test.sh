@@ -1,4 +1,6 @@
-#!/bin/bash -eu
+#!/bin/bash
+
+set -euxo pipefail
 
 source scripts/_functions.sh
 

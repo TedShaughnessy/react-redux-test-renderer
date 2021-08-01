@@ -1,5 +1,4 @@
 import { TestRenderer } from 'react-redux-test-renderer';
-import { cleanup } from '@testing-library/react';
 import {
   defaultProps,
   defaultState,
@@ -39,8 +38,6 @@ const thirdWrapper = connectedTestComponentWithWrappers.addWrapper(
 );
 
 const selector = 'body > div > .three > .two > .one > h3';
-
-afterEach(cleanup);
 
 describe('adding wrappers works: ', () => {
     it('wrapped test component', () => {

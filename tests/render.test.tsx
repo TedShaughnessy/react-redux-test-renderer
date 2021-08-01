@@ -1,5 +1,4 @@
 import { TestRenderer } from 'react-redux-test-renderer';
-import { cleanup } from '@testing-library/react';
 import {
   defaultProps,
   defaultState,
@@ -22,8 +21,6 @@ const testComponent = new TestRenderer(
     defaultState
 );
 const testComponent2 = new TestRenderer(TestComponent);
-
-afterEach(cleanup);
 
 describe('render works ', () => {
     it('renders children', () => {

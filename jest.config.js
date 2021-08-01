@@ -5,5 +5,6 @@ module.exports = {
     },
     collectCoverageFrom: [
         "package/dist/**",
-      ]
+      ],
+      testEnvironment: "jsdom"
 };

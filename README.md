@@ -11,13 +11,14 @@ Simplifies the test setup of components using wrappers like Redux, React-Context
 <br>
 
 ---
+
 <br>
 
 This is just the wrapper for the package that provides the integration tests.
 
 If you're looking for the package it can be found in the package folder, the readme can be found [here](package/README.md)
 
-Why do the integration test wrap the package? The package requires peerDependencies and the integration layer resolves them.
+Why do the integration tests wrap the package? The package requires peerDependencies and the integration test wrapper resolves them.
 
 <br>
 

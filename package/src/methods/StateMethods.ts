@@ -7,10 +7,8 @@ export class StateMethods {
         this.trs = testRendererState;
     }
 
-    updateStateWithDispatch = async (state: object, actionType?: string): Promise<void> => {
+    updateStateWithDispatch = (state: object, actionType?: string): void => {
         this.trs.setState(state);
         this.trs.mockStore.dispatch({ type: actionType ?? 'TESTING_UPDATE_ACTION' });
-        // asynchronous function allows react to run useEffects
-        await new Promise(_ => setTimeout(() => {}, 1));
     };
 }

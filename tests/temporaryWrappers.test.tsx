@@ -1,5 +1,4 @@
 import { TestRenderer } from 'react-redux-test-renderer';
-import { cleanup } from '@testing-library/react';
 import {
   defaultProps,
   defaultState,
@@ -13,8 +12,6 @@ import {
   statePropFromStore,
   statePropDefault
 } from '../testComponents/Properties';
-
-afterEach(cleanup);
 
 describe('adding temporary wrappers works: ', () => {
     describe('Without Store: ', () => {

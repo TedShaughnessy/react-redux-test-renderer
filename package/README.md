@@ -12,8 +12,6 @@ Simplifies the test setup of components using wrappers like Redux, React-Context
 
 ## Installation
 
-
-
 ```
 npm install --save-dev react-redux-test-renderer
 ```
@@ -35,15 +33,11 @@ The package is tested against the versions listed in the `peerDependencies` sect
 
 ```tsx
 import { TestRenderer } from 'react-redux-test-renderer';
-import { cleanup } from '@testing-library/react';
 
 const testComponent = new TestRenderer(ReactComponent);
 
-afterEach(cleanup);
-
 describe('test', () => {
     it('dispatches action when clicked', () => {
-        
         // all the things you get from a test-libary render are also returned from this render
         const { getByTestId } = testComponent.render();
 
@@ -61,35 +55,32 @@ describe('test', () => {
 
 ### Passing Children
 
-``` tsx
-    it('renders children', () => {
+```tsx
+it('renders children', () => {
+    const children = [<p key="1">1</p>, <p key="2">2</p>];
+    const { getByText } = testComponent.render(undefined, children);
 
-        const children = [<p key="1">1</p>, <p key="2">2</p>];
-        const { getByText } = testComponent.render(undefined, children);
-
-        getByText('1');
-        getByText('2');
-    });
+    getByText('1');
+    getByText('2');
+});
 ```
 
 ### Setting Default Props
 
-``` tsx
+```tsx
 const defaultProps = {
-    toggled: true
-}
+    toggled: true,
+};
 
 const testComponent = new TestRenderer(ReactComponent, defaultProps);
 
 it('is toggled', () => {
-
     const { getByTestId } = testComponent.render();
 
     expect(getByTestId('toggleId')).toBe(toggled);
 });
 
 it('is not toggled', () => {
-
     const { getByTestId } = testComponent.render({ toggled: false });
 
     expect(getByTestId('toggleId')).not.toBe(toggled);
@@ -98,14 +89,14 @@ it('is not toggled', () => {
 
 ### Rendering with a Redux Store
 
-``` tsx
+```tsx
 const defaultProps = {
-    toggled: true
-}
+    toggled: true,
+};
 
 const defaultState = {
-    isSwitched: true
-}
+    isSwitched: true,
+};
 
 const testComponent = new TestRenderer(ReactComponent, defaultProps, defaultState);
 
@@ -128,7 +119,7 @@ it('is not switched', () => {
 
 ### Updating the Redux Store (and triggering a render)
 
-``` tsx
+```tsx
 it('updates switch when state changes', () => {
     // render using default props and default store
     const { getByTestId } = testComponent.renderWithStore();
@@ -137,33 +128,30 @@ it('updates switch when state changes', () => {
 
     // this method dispatches an Action to trigger the render
     // it can be awaited, but doesn't usually need to be
-    testComponent.updateStateWithDispatch({...defaultState, isSwitchedOn: false});
+    testComponent.updateStateWithDispatch({ ...defaultState, isSwitchedOn: false });
 
     expect(getByTestId('switchId')).not.toBe(switchedOn);
 });
 ```
 
-## Simpler Rerender
+### Simpler Rerender
 
-``` tsx
+```tsx
 it('needs to render again', () => {
     testComponent.render();
 
     // works like the usual rerender, just with fewer steps
     // (temporary wrappers are still used)
-    const rerenderResult = result.rerender({...defaultProps});
+    const rerenderResult = result.rerender({ ...defaultProps });
 });
-
 ```
 
-## Wrappers
+### Wrappers
 
-``` tsx
+```tsx
 const testComponent = new TestRenderer(ReactComponent, initialProps, initialState);
 const routerId = testComponent.addWrapper(MemoryRouter, { initialEntries: ['/'] });
 const contextId = testComponent.addContextProvider(Context, value);
-
-afterEach(cleanup);
 
 describe('test', () => {
     it('wrapped', () => {
@@ -181,13 +169,11 @@ describe('test', () => {
     });
     it('uses rerender and a temporary wrapper for an example', () => {
         // I'm not sure who asked for it but you can add a wrapper that only lasts for one render
-        const result = testComponent
-            .useTemporaryWrapper(Container, {})
-            .renderWithStore();
+        const result = testComponent.useTemporaryWrapper(Container, {}).renderWithStore();
 
         expect(something);
     });
 });
 ```
 
-- for further examples see the integration tests, happy testing :)
+-   for further examples see the integration tests, happy testing :)

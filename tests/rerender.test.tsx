@@ -1,5 +1,4 @@
 import { TestRenderer } from 'react-redux-test-renderer';
-import { cleanup } from '@testing-library/react';
 import {
   defaultProps,
   defaultState,
@@ -16,8 +15,6 @@ import {
   propPassed,
   statePropFromStore
 } from '../testComponents/Properties';
-
-afterEach(cleanup);
 
 const testComponentWithWrappers = new TestRenderer(
     TestComponent,

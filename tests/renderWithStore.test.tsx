@@ -1,5 +1,4 @@
 import { TestRenderer } from 'react-redux-test-renderer';
-import { cleanup } from '@testing-library/react';
 import {
   defaultProps,
   defaultState,
@@ -26,8 +25,6 @@ const connectedTestComponent = new TestRenderer(
     defaultState
 );
 const connectedTestComponent2 = new TestRenderer(ConnectedTestComponent);
-
-afterEach(cleanup);
 
 describe('renderWithStore works ', () => {
     it('renders children', () => {

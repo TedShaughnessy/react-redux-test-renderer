@@ -1,10 +1,7 @@
 import { TestRenderer } from 'react-redux-test-renderer';
-import { cleanup } from '@testing-library/react';
 import { defaultProps, defaultState } from './testHelper';
 import ConnectedTestComponent from '../testComponents/TestComponent';
 import { statePropDifferentPassed } from '../testComponents/Properties';
-
-afterEach(cleanup);
 
 const connectedTestComponent = new TestRenderer(
     ConnectedTestComponent,
@@ -42,6 +39,8 @@ describe('action functions works: ', () => {
         expect(connectedTestComponent.getCountForAllActions()).toEqual(0);
     });
     it('renderWithStore resets store when given no state', () => {
+        connectedTestComponent.renderWithStore(defaultProps, defaultState);
+        expect(connectedTestComponent.getCountForAllActions()).toEqual(0);
         connectedTestComponent.updateStateWithDispatch({});
         expect(connectedTestComponent.getCountForAllActions()).toEqual(1);
         connectedTestComponent.renderWithStore();

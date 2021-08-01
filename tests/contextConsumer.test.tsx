@@ -1,5 +1,4 @@
 import { TestRenderer } from 'react-redux-test-renderer';
-import { cleanup } from '@testing-library/react';
 import {
   defaultProps,
   defaultState,
@@ -22,8 +21,6 @@ const contextValue = testComponentWithContext.addContextProvider(TestContext, {
 });
 
 const selector = 'body > div > h3';
-
-afterEach(cleanup);
 
 describe('adding context provider wrapper works: ', () => {
     it('context consumer component', () => {
