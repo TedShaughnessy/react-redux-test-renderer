@@ -17,7 +17,7 @@
         "postinstall": "cd package && npm i"
     },
     "dependencies": {
-        "@testing-library/react": "^11",
+        "@testing-library/react": "^12",
         "@types/jest": "^25.2.1",
         "@types/react-redux": "^7",
         "jest": "^27.0.0",
@@ -32,20 +32,18 @@
     "devDependencies": {
         "@types/jest": "^26.0.0",
         "@babel/core": "^7.9.0",
-        "@types/react": "^17",
-        "@types/react-dom": "^17",
+        "@types/react": "^17.0.40",
+        "@types/react-dom": "^17.0.13",
         "@types/redux-mock-store": "^1",
-        "@typescript-eslint/eslint-plugin": "^2.16.0",
-        "@typescript-eslint/parser": "^2.16.0",
-        "eslint": "^6.8.0",
-        "eslint-config-airbnb-typescript": "^7.2.0",
-        "eslint-config-prettier": "^6.9.0",
+        "@typescript-eslint/eslint-plugin": "^5.15.0",
+        "@typescript-eslint/parser": "^5.15.0",
+        "eslint": "^8.1.0",
+        "eslint-config-prettier": "^8.5.0",
         "eslint-config-react": "^1.1.7",
-        "eslint-plugin-import": "^2.20.0",
-        "eslint-plugin-jsx-a11y": "^6.2.3",
-        "eslint-plugin-prettier": "^3.1.1",
-        "eslint-plugin-react": "^7.18.0",
-        "prettier": "^1.18.2",
+        "eslint-plugin-import": "^2.25.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-react": "^7.29.0",
+        "prettier": "^2.5.0",
         "typescript": "^4"
     }
 }

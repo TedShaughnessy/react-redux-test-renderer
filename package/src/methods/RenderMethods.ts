@@ -57,7 +57,7 @@ export class RenderMethods {
     private wrapWithWrapperArray = (array: IWrapper[], component: _component): _component => {
         let wrappedElement = component;
 
-        array.forEach(wrapper => {
+        array.forEach((wrapper) => {
             wrappedElement = this.wrapWithWrapper(wrappedElement, wrapper);
         });
 

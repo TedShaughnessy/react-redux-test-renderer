@@ -21,16 +21,16 @@
         "build": "tsc"
     },
     "peerDependencies": {
-        "@testing-library/react": "^11",
+        "@testing-library/react": "^12",
         "react": "^17",
         "redux": "^4",
         "react-redux": "^7"
     },
     "devDependencies": {
-        "@types/react": "^17",
-        "@types/react-dom": "^17",
-        "@types/redux-mock-store": "^1",
-        "@types/react-redux": "^7"
+        "@types/react": "^17.0.40",
+        "@types/react-dom": "^17.0.13",
+        "@types/react-redux": "^7.1.23",
+        "@types/redux-mock-store": "^1"
     },
     "dependencies": {
         "redux-mock-store": "^1"
