@@ -18,16 +18,16 @@ npm install --save-dev react-redux-test-renderer
 
 To ensure everything plays nice, make sure you have the following dependancies already installed:
 
--   `@testing-library/react`
--   `react`
--   `redux`
--   `react-redux`
+- `@testing-library/react`
+- `react`
+- `redux`
+- `react-redux`
 
 The package is tested against the versions listed in the `peerDependencies` section of the [package.json](package.json), it's flexible since it uses the package versions you're already using.
 
 <br>
 
-## Examples:
+## Examples
 
 ### Rendering a Simple Component
 
@@ -176,4 +176,4 @@ describe('test', () => {
 });
 ```
 
--   for further examples see the integration tests, happy testing :)
+- For further examples see the integration tests, happy testing :)
